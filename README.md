@@ -660,3 +660,10 @@ Every heading, hint, label and warning in Oak's Lab lives as a string inside
 `src/*.js`. `tools/extract-copy.mjs` / `tools/apply-copy.mjs` pull it all into
 one `copy.md` to edit in a normal text editor and put it back — see
 [tools/README.md](tools/README.md) for the full process.
+
+## License
+
+[Oak's Lab License](LICENSE) — free to use, copy, modify and distribute.
+The one condition: a mod made with Oak's Lab should credit Oak's Lab and its
+creator, Nezara, somewhere in its own credits — e.g. "Made with Oak's Lab by
+Nezara".
