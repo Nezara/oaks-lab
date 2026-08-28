@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>Oak's Lab — gen1recomp</title>
+<!-- assets/favicon.svg, inlined so the built page stays one self-contained file -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E %3Ccircle cx='32' cy='32' r='28' fill='%23f0f0f8' stroke='%23384048' stroke-width='4'/%3E %3Cpath d='M4 32a28 28 0 0 1 56 0z' fill='%23a82028' stroke='%23384048' stroke-width='4' stroke-linejoin='round'/%3E %3Crect x='4' y='29' width='56' height='6' fill='%23384048'/%3E %3Ccircle cx='32' cy='32' r='10' fill='%23f0f0f8' stroke='%23384048' stroke-width='4'/%3E %3Ccircle cx='32' cy='32' r='4.5' fill='%23ccd4e0' stroke='%23384048' stroke-width='2'/%3E %3Cpath d='M14 14a24 24 0 0 1 10-5' fill='none' stroke='%23c85048' stroke-width='3' stroke-linecap='round' opacity='.6'/%3E %3C/svg%3E">
+<style>
+__FONTS__
+__APP_CSS__
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Oak's Lab <small>gen1recomp</small></h1>
+  <nav id="tabs">
+    <button data-tab="start" class="on">Start</button>
+    <button data-tab="content">Content</button>
+    <button data-tab="script">Scripts</button>
+    <button data-tab="export">Export</button>
+  </nav>
+  <span class="sp"></span>
+  <button id="btnSave" class="fixed">Save</button>
+  <button id="btnOpen" class="fixed">Open</button>
+</header>
+
+<main>
+  <!-- ============================================================ START -->
+  <section class="tab cols1 on" id="tab-start">
+    <div class="pane">
+      <div style="text-align:center;margin-bottom:18px">
+        <button id="btnNewProject" class="danger fixed">Clear Project</button>
+        <p class="hint">Throws away everything in this mod and drops you back at
+          the beginning. Your saved <code>.modforge.json</code> file (Save, in
+          the header) is the way back if you change your mind.</p>
+      </div>
+      <h2>What do you want to make?</h2>
+      <p class="hint">Pick a workspace to jump straight into it.</p>
+      <div class="cards" id="recipes"></div>
+      <p class="hint">Hooks and events are real Lua and stay that way — this
+        tool covers content records and scripts. Fields typed
+        <code>function</code> in the engine schema are shown but not editable
+        here; the exported <code>main.lua</code> is plain readable Lua you can
+        keep editing by hand, which is the whole point of the ramp. Your mod's
+        name, author and version live on the Export tab.</p>
+      <h2>Tutorial</h2>
+      <p class="hint">Guided walkthroughs for common patterns. Not built yet.</p>
+      <div class="cards" id="tutorials"></div>
+      <input type="file" id="projectFile" accept=".json" style="display:none">
+    </div>
+  </section>
+
+  <!-- ========================================================== CONTENT -->
+  <section class="tab cols1" id="tab-content">
+    <div class="content-shell">
+      <nav class="subtabs" id="contentSub">
+        <button data-sub="npc" class="on">NPC</button>
+        <button data-sub="pokemon">Pokemon</button>
+        <button data-sub="moves">Moves</button>
+        <button data-sub="items">Items</button>
+        <button data-sub="maps">Maps</button>
+        <span class="sp"></span>
+        <button data-sub="records" class="ghost">All records</button>
+      </nav>
+
+      <!-- ------------------------------------------------------- NPC -->
+      <div class="subpane on" id="sub-npc">
+        <div class="worktitle" id="npcTitle">NPC</div>
+        <div class="workframe" id="npcDock" style="--dock:280px">
+          <div class="worksteps" id="npcSteps"></div>
+          <div class="dockbar" id="npcDockBar" title="Drag to resize the node editor">
+            <span class="dockgrip"></span>
+            <span class="dockname">Node Editor</span>
+            <button class="dockx" id="npcDockToggle" title="Collapse or expand">▾</button>
+          </div>
+          <div class="dockpane" id="npcDockPane">
+            <div class="dockcols">
+              <div class="pane docknarrow">
+                <h2>Blocks</h2>
+                <p class="hint">Right-click the canvas to search all blocks and drop one where you point. These are the common ones.</p>
+                <label><input type="checkbox" id="npcAllVerbs">Show every verb</label>
+                <div id="npcVerbPalette"></div>
+              </div>
+              <div class="stage" id="npcNodeScroll">
+                <div id="npcNodeStage"><svg id="npcWires"></svg></div>
+              </div>
+              <div class="pane docknarrow" id="npcNodeInspector"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ---------------------------------------------------- POKEMON -->
+      <div class="subpane" id="sub-mon">
+        <div class="worktitle" id="monTitle">Pokemon</div>
+        <div class="workframe nodock"><div class="worksteps" id="monSteps"></div></div>
+      </div>
+
+      <!-- ------------------------------------------------------ MOVES -->
+      <div class="subpane" id="sub-move">
+        <div class="worktitle" id="moveTitle">Moves</div>
+        <div class="workframe nodock"><div class="worksteps" id="moveSteps"></div></div>
+      </div>
+
+      <!-- ------------------------------------------------------ ITEMS -->
+      <div class="subpane" id="sub-item">
+        <div class="worktitle" id="itemTitle">Items</div>
+        <div class="workframe nodock"><div class="worksteps" id="itemSteps"></div></div>
+      </div>
+
+      <!-- ------------------------------------------------------- MAPS -->
+      <div class="subpane" id="sub-map">
+        <div class="pane">
+          <h2>Maps</h2>
+          <button id="btnAddMap" style="width:100%;margin-bottom:6px">+ New</button>
+          <div id="mapList"></div>
+          <h2>Tools</h2>
+          <div id="mapTools">
+            <div class="toolgroup-label">Textures</div>
+            <div class="tools">
+              <button data-tool="paint" class="on">Paint</button>
+              <button data-tool="eyedrop">Eye drop</button>
+              <button data-tool="select">Select</button>
+            </div>
+            <div class="toolgroup-label">Objects</div>
+            <div class="tools">
+              <button data-tool="warp">Warp</button>
+              <button data-tool="warptile">Warp tile</button>
+              <button data-tool="sign">Sign</button>
+              <button data-tool="npc">NPC</button>
+              <button data-tool="pick">Select</button>
+              <button data-tool="remove">Remove</button>
+            </div>
+            <div class="toolgroup-label">Collision</div>
+            <div class="tools">
+              <button data-tool="solid">Block off</button>
+              <button data-tool="walk">Open up</button>
+              <button data-tool="reset">Clear</button>
+            </div>
+          </div>
+          <div class="hint" id="mapToolHint"></div>
+          <label style="margin-top:8px"><input type="checkbox" id="showWalk" checked>Shade blocked cells</label>
+          <label><input type="checkbox" id="showGrid">Show grid</label>
+          <h2>Blocks</h2>
+          <div class="stack" style="margin-bottom:6px">
+            <button id="btnImportTileset" style="width:100%">Import sprite sheet</button>
+            <button id="btnExportTileset" style="width:100%">Export sprite sheet</button>
+          </div>
+          <div id="tilesetPick"></div>
+          <label><input type="checkbox" id="zoneCompound" checked>Mix tilesets</label>
+          <label><input type="checkbox" id="zoneSubtile">Sub-tiles (quadrants)</label>
+          <div class="hint" id="zoneModeHint"></div>
+          <div id="zoneQuadPick"></div>
+          <div id="blockPal"></div>
+          <h2>Outside fill</h2>
+          <div id="borderFill"></div>
+          <h2>Zone art</h2>
+          <div id="zoneArt"></div>
+        </div>
+        <div class="stage" id="mapWrap">
+          <div id="mapBar"></div>
+          <canvas id="mapCanvas"></canvas>
+        </div>
+        <div class="pane" id="mapInspectorPane">
+          <label><input type="checkbox" id="showCoords">Show coordinates</label>
+          <div class="hint" id="mapCoords"></div>
+          <div id="mapInspector"><div class="empty">Create or select a map.</div></div>
+        </div>
+      </div>
+
+      <!-- ------------------------------------ the generic record editor -->
+      <div class="subpane cols3" id="sub-records">
+        <div class="pane">
+          <h2>Content <button id="btnAddEntry" class="fixed" style="float:right;min-height:24px;padding:0 8px">+ Add</button></h2>
+          <div id="entryList"></div>
+          <p class="hint">Scripts have their own tab; maps have their own screen above.</p>
+        </div>
+        <div class="pane" id="entryForm"><div class="empty">Add or select a content record.</div></div>
+        <div class="pane" id="entryDoc"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================== SCRIPT -->
+  <section class="tab cols2" id="tab-script">
+    <div class="pane">
+      <h2>Files</h2>
+      <div id="fileList"></div>
+    </div>
+    <div class="stage" style="padding:10px"><pre class="code" id="filePreview"></pre></div>
+  </section>
+
+  <!-- =========================================================== EXPORT -->
+  <section class="tab cols1" id="tab-export">
+    <div class="pane">
+      <div id="exportSteps" class="worksteps"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="dlg">
+  <div class="dlghead"><h3 id="dlgTitle">…</h3><button id="dlgClose">Close</button></div>
+  <div class="dlgbody" id="dlgBody"></div>
+</dialog>
+
+<div id="toast"></div>
+
+<script id="SCHEMA_PACK" type="application/json">__SCHEMA_PACK__</script>
+<script id="GAMEDATA" type="application/json">__GAMEDATA__</script>
+
+<script>
+// Runs in BOTH this template and the built page -- it deliberately contains no
+// build placeholder of its own, so the build copies it through untouched.
+//
+// If the JSON island above is still a placeholder, this file is the source
+// template rather than the app. The script that follows is also still a
+// placeholder, so it cannot report anything: without this check the page
+// renders in full and every button silently does nothing.
+(function () {
+  var pack = document.getElementById("SCHEMA_PACK");
+  if (!pack || !/^__[A-Z_]+__$/.test(pack.textContent.trim())) return;
+  var b = document.createElement("div");
+  b.setAttribute("style",
+    "position:fixed;inset:0;z-index:999;background:#f0f0f8;color:#2b3440;padding:24px;" +
+    "overflow:auto;font:13px/1.6 ui-monospace,Consolas,monospace");
+  b.innerHTML =
+    '<h2 style="color:#a82028;font-size: 19px;margin:0 0 10px">This is the source template, not the app.</h2>' +
+    '<p style="color:#5d6e7e;max-width:60ch">You have opened <code>src/app.html</code>. Its content has not been ' +
+    'built in yet, so the page looks right and does nothing. Build it once, then open ' +
+    '<code>oaks-lab.html</code> (project root) instead.</p>' +
+    '<pre style="background:#e6ebf3;border:1px solid #a8b8c8;border-radius:4px;padding:10px;max-width:60ch">' +
+    'node build.mjs</pre>' +
+    '<p style="color:#8194a5;max-width:60ch">That built file is standalone: no server, no internet, no install. ' +
+    'Double-click it, or copy it to a phone and open it from the file manager.</p>';
+  document.body.appendChild(b);
+})();
+</script>
+
+<script>
+__APP_JS__
+</script>
+</body>
+</html>

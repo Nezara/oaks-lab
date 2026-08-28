@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Oak's Lab pokeball mark -- same five swatches as the app chrome:
+       #a82028 top / #f0f0f8 bottom / #384048 outline and button ring. -->
+  <circle cx="32" cy="32" r="28" fill="#f0f0f8" stroke="#384048" stroke-width="4"/>
+  <path d="M4 32a28 28 0 0 1 56 0z" fill="#a82028" stroke="#384048" stroke-width="4" stroke-linejoin="round"/>
+  <rect x="4" y="29" width="56" height="6" fill="#384048"/>
+  <circle cx="32" cy="32" r="10" fill="#f0f0f8" stroke="#384048" stroke-width="4"/>
+  <circle cx="32" cy="32" r="4.5" fill="#ccd4e0" stroke="#384048" stroke-width="2"/>
+  <path d="M14 14a24 24 0 0 1 10-5" fill="none" stroke="#c85048" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+</svg>

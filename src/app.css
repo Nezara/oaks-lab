@@ -1,0 +1,630 @@
+/* The Poke Center palette: five given swatches in their natural roles --
+   #f0f0f8 panels, #c85048 title/highlights, #a82028 primary buttons and the
+   active tab, #70b8f0 warps, #a8b8c8 every border.
+
+   --bg (the page behind the panels) and the two input/selected shades
+   (--panel2/3) aren't among the five, so they're derived as steps between
+   the two neutrals (--panel and --line). --ink is that same blue-grey taken
+   dark enough to read, and --dim/--dimmer are --ink stepped toward --panel
+   so they fade rather than vanish. */
+:root {
+  --bg: #dee2ec; --panel: #f0f0f8; --panel2: #ccd4e0; --panel3: #bac6d4;
+  --line: #a8b8c8; --ink: #384048; --dim: #677285; --dimmer: #838b97;
+  --accent: #c85048; --accent2: #a82028; --ink-on-accent: #f0f0f8;
+  --warp: #70b8f0; --heading: #c85048; --sign: #a86a10; --obj: #a8409a; --bad: #a82028; --good: #2f7d4f;
+
+  /* Tokens below here are the ones that escaped the two lines above during
+     the first pass -- each still a deliberate, named colour, just not one of
+     the five original swatches. Grouped by the part of the UI they belong
+     to so a repalette has one place to look per feature, rather than a hunt
+     through every rule for a stray #hex. */
+
+  /* All records' verb chips: tinted, not dark, so a chip never reads as a
+     button (see the comment beside .tag.register below). */
+  --tag-register-bg: #f2dcda; --tag-register-fg: #a82028;
+  --tag-patch-bg: #d9eaf9; --tag-patch-fg: #24688f;
+  --tag-override-bg: #f5e6cc; --tag-override-fg: #8a5a10;
+  --tag-remove-bg: #f6d9d9; --tag-remove-fg: #a82028;
+
+  /* The node editor's own palette: a check block, a data block (Pokemon
+     team), a start block and the team wire/socket/exit all read as distinct
+     kinds of thing from an ordinary action block (which just uses --accent). */
+  --node-check: #4a7fb5;
+  --node-klass: #7a5cc4; --node-klass-bg: #ece7f7; --node-klass-fg: #5b3fa6;
+  --node-start-bg: #f5dcda;
+  --node-team: #5b3fa6;
+
+  /* The dock bar's grab handle: orange because it is the one thing on the
+     page you are meant to grab, and nothing else on the page is orange. */
+  --grab: #e08a2e;
+
+  /* Lua syntax highlight on the Scripts tab. k2/k4 already reuse --accent2
+     and --dimmer; k1/k3 (keywords, numbers) didn't have a home yet. */
+  --code-k1: #6b3fa0; --code-k3: #a8501f;
+
+  /* Plain alpha-black shadows and the dialog backdrop -- not really
+     "colours" so much as depth, but named so a dark-mode pass would know to
+     look here rather than assume they're already theme-proof. */
+  --shadow-sm: #0003; --shadow-md: #0006; --shadow-lg: #0004;
+  --backdrop: #2b344099;
+
+  /* Silkscreen is the chrome -- titles, tabs, headings -- where the strings
+     are short and blocky is the point. VT323 carries everything with
+     sentences in it and the Lua the exporter prints: it is monospace, so the
+     code stays in its columns. Both fall back to the old stack if the build
+     went out without data/fonts.css. */
+  --font-ui: 'Silkscreen', ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --font-body: 'VT323', ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --tap: 34px;
+
+  /* Reading widths for the two columns that are prose and forms rather than
+     an editor. --read is a step: 620px of body plus the step's own 20px of
+     padding either side, so a step and the body inside it line up exactly
+     instead of the body sitting in the left third of a wide step. */
+  --read: 660px;
+  --wide: 940px;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; overscroll-behavior: none; }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 17px/1.3 var(--font-body);
+  display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* ------------------------------------------------------------- chrome -- */
+header {
+  background: var(--panel); border-bottom: 1px solid var(--line);
+  padding: 6px 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding-top: max(6px, env(safe-area-inset-top));
+}
+header h1 { font-family: var(--font-ui); font-size: 13px; margin: 0; color: var(--accent); letter-spacing: 0; white-space: nowrap; }
+header h1 small { color: var(--dimmer); font-weight: 400; letter-spacing: 0; }
+.sp { flex: 1; }
+nav { display: flex; gap: 3px; flex-wrap: wrap; }
+nav button { font-family: var(--font-ui); font-size: 10px; min-height: var(--tap); padding: 0 8px; }
+nav button.on { background: var(--accent2); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+
+button, input, select, textarea {
+  font: inherit; background: var(--panel2); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 4px; padding: 5px 7px;
+}
+button { cursor: pointer; min-height: var(--tap); }
+button:hover { border-color: var(--accent2); color: var(--accent); }
+button:disabled { opacity: .4; cursor: default; }
+button.primary { background: var(--accent2); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+button.primary:hover { color: var(--ink-on-accent); }
+button.danger:hover { border-color: var(--bad); color: var(--bad); }
+input, select, textarea { width: 100%; }
+input[type=checkbox] { width: auto; min-height: 0; margin-right: 6px; vertical-align: -2px; }
+textarea { resize: vertical; }
+label { display: block; font-size: 14px; color: var(--dim); margin: 8px 0 2px; }
+a { color: var(--accent); }
+
+/* -------------------------------------------------------------- layout -- */
+main { flex: 1; min-height: 0; position: relative; }
+.tab { position: absolute; inset: 0; display: none; }
+.tab.on { display: grid; }
+.cols3 { grid-template-columns: 250px 1fr 320px; }
+.cols2 { grid-template-columns: 260px 1fr; }
+.cols1 { grid-template-columns: 1fr; }
+.pane { background: var(--panel); overflow-y: auto; overflow-x: hidden; padding: 10px; -webkit-overflow-scrolling: touch; }
+.pane + .pane { border-left: 1px solid var(--line); }
+.stage { background: var(--bg); overflow: auto; position: relative; border-left: 1px solid var(--line); }
+
+h2 {
+  font-family: var(--font-ui); font-size: 10px; text-transform: uppercase; letter-spacing: .5px;
+  color: var(--heading); margin: 16px 0 6px; border-bottom: 1px solid var(--line); padding-bottom: 4px;
+}
+h2:first-child { margin-top: 0; }
+.hint { color: var(--dim); font-size: 14px; margin: 6px 0; }
+.hint.warn { color: var(--sign); }
+.hint.bad { color: var(--bad); }
+.row { display: flex; gap: 6px; align-items: center; }
+.row > * { flex: 1; min-width: 0; }
+.row > .fixed { flex: 0 0 auto; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.stack > * + * { margin-top: 6px; }
+
+/* --------------------------------------------------------------- lists -- */
+.item {
+  padding: 7px 8px; border: 1px solid var(--line); border-radius: 4px;
+  margin-bottom: 4px; cursor: pointer; font-size: 15px;
+  display: flex; gap: 6px; align-items: center; min-height: var(--tap);
+}
+.item:hover { border-color: var(--accent2); }
+.item.sel { border-color: var(--accent); background: var(--panel2); }
+.item .who { color: var(--dim); font-size: 13px; margin-left: auto; white-space: nowrap; }
+.tag {
+  display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 12px;
+  text-transform: uppercase; letter-spacing: .5px; background: var(--panel3); color: var(--dim);
+}
+/* Tinted chips rather than dark ones: on a light page a dark chip reads as a
+   button, which is the one thing these are not. */
+.tag.register { background: var(--tag-register-bg); color: var(--tag-register-fg); }
+.tag.patch    { background: var(--tag-patch-bg); color: var(--tag-patch-fg); }
+.tag.override { background: var(--tag-override-bg); color: var(--tag-override-fg); }
+.tag.remove   { background: var(--tag-remove-bg); color: var(--tag-remove-fg); }
+.empty { color: var(--dimmer); font-size: 14px; padding: 14px 4px; text-align: center; }
+
+/* ------------------------------------------------ content sub-workspace -- */
+/* One tab, one workspace, laid out like an editor rather than a form dump:
+   a strip of what you can make, a scrolling column of numbered steps, and a
+   node editor docked under it that drags up and down. */
+.content-shell { display: grid; grid-template-rows: auto minmax(0, 1fr); min-height: 0; }
+.subtabs {
+  display: flex; gap: 5px; flex-wrap: wrap; align-items: center;
+  padding: 8px 10px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+.subtabs button { min-height: var(--tap); padding: 0 14px; border-radius: 14px; }
+.subtabs button.on { background: var(--accent2); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+.subtabs button.ghost { border-style: dashed; color: var(--dimmer); font-size: 14px; min-height: 26px; padding: 0 10px; }
+
+.subpane { display: none; min-height: 0; }
+.subpane.on { display: grid; }
+#sub-npc.on, #sub-mon.on, #sub-move.on, #sub-item.on { grid-template-rows: auto minmax(0, 1fr); padding: 10px; gap: 6px; }
+/* The map editor is a three-column editor inside the strip, the same shape
+   the record list uses: list and tools, canvas, inspector. */
+#sub-records.on, #sub-map.on { grid-template-columns: 250px 1fr 320px; }
+
+.worktitle { font-size: 15px; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; }
+.worktitle b { color: var(--accent); font-weight: 700; }
+.workframe {
+  border: 2px solid var(--ink); border-radius: 4px; background: var(--panel);
+  min-height: 0; display: grid;
+  grid-template-rows: minmax(0, 1fr) auto minmax(0, var(--dock, 0px));
+}
+.workframe.nodock { grid-template-rows: minmax(0, 1fr); }
+.worksteps { overflow-y: auto; overflow-x: hidden; padding: 0 0 24px; -webkit-overflow-scrolling: touch; }
+
+/* The toolbar that stays put while the steps scroll under it. */
+.workbar {
+  position: sticky; top: 0; z-index: 2; display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+  padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--line);
+}
+/* Add and Discard sit at the end of the bar, so on a phone they drop to a
+   second line together rather than squeezing the list of people to nothing. */
+.workbar button { white-space: nowrap; }
+.workbar select { flex: 1 1 140px; min-width: 120px; max-width: 320px; }
+/* Sits where "Add to the mod" does once a record is already in the mod --
+   invisible until flashUpdated() (core.js) pulses it, on the same debounce
+   autosave itself fires on, so it appears once editing has actually paused
+   rather than on every keystroke or needing a button pressed for it. */
+.updated-flash {
+  color: var(--good); font-weight: 700; font-size: 14px; white-space: nowrap;
+  opacity: 0; transition: opacity .3s ease;
+}
+.updated-flash.show { opacity: 1; }
+
+/* Numbered steps, hairline-separated the way the sketch has them. */
+.step { padding: 16px 20px; }
+.step + .step { border-top: 1px solid var(--line); }
+.step > h3 {
+  margin: 0 0 10px; font-family: var(--font-ui); font-size: 11px; color: var(--ink);
+  display: flex; gap: 8px; align-items: baseline;
+}
+.step > h3 .n { color: var(--accent); font-weight: 700; }
+.step > h3 .said { margin-left: auto; font-size: 13px; color: var(--dimmer); font-weight: 400; text-transform: none; letter-spacing: 0; }
+.step .body { max-width: 620px; }
+.step.todo { opacity: .5; }
+
+/* Orange, because it is the one thing on the page you are meant to grab. */
+.dockbar {
+  display: flex; gap: 8px; align-items: center; padding: 0 10px;
+  height: 26px; background: var(--panel2);
+  border-top: 2px solid var(--grab); border-bottom: 1px solid var(--line);
+  cursor: ns-resize; touch-action: none; user-select: none;
+}
+.dockbar:hover { background: var(--panel3); }
+.dockgrip { flex: 0 0 26px; height: 4px; border-radius: 2px; background: var(--sign); }
+.dockname { font-family: var(--font-ui); font-size: 10px; text-transform: uppercase; letter-spacing: .5px; color: var(--sign); }
+.dockx {
+  margin-left: auto; flex: 0 0 auto; min-height: 20px; padding: 0 8px; font-size: 14px;
+  line-height: 1; background: transparent; border-color: transparent; color: var(--dim);
+}
+.dockpane { min-height: 0; overflow: hidden; background: var(--bg); }
+.dockcols { height: 100%; display: grid; grid-template-columns: 190px minmax(0, 1fr) 260px; min-height: 0; }
+.dockcols > .stage { min-height: 0; }
+.docknarrow { font-size: 15px; }
+.docknarrow h2:first-child { margin-top: 0; }
+
+/* ------------------------------------------------------- sprite pickers -- */
+.artrow { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 10px; }
+.artbox {
+  flex: 0 0 auto; width: 76px; height: 76px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 4px; background: var(--bg);
+}
+.artbox canvas, .artbox img { image-rendering: pixelated; display: block; }
+.artbox .none { font-size: 13px; color: var(--dimmer); text-align: center; padding: 4px; }
+.artmeta { flex: 1; min-width: 0; }
+.artmeta .who { font-size: 14px; color: var(--ink); word-break: break-all; }
+.artmeta .hint { margin: 2px 0 6px; }
+.artbtns { display: flex; gap: 6px; flex-wrap: wrap; }
+.artbtns button { min-height: 28px; padding: 0 10px; font-size: 14px; }
+
+.spritegrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 6px; }
+.spritepick {
+  border: 1px solid var(--line); border-radius: 4px; background: var(--panel2);
+  padding: 5px 3px; cursor: pointer; text-align: center;
+}
+.spritepick:hover { border-color: var(--accent); }
+.spritepick.sel { border-color: var(--accent); background: var(--panel3); }
+.spritepick canvas { image-rendering: pixelated; display: block; margin: 0 auto 3px; }
+.spritepick span { font-size: 12px; color: var(--dim); word-break: break-all; line-height: 1.2; display: block; }
+
+/* One frame of the overworld sheet, with arrows to turn and a walk toggle.
+   The stage is a fixed box so turning or stepping between frames of slightly
+   different heights does not shuffle the buttons around under the finger. */
+.owpreview { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 8px 0 14px; }
+.owturn { min-width: 38px; padding: 0 8px; }
+.owstage {
+  display: flex; align-items: flex-end; justify-content: center;
+  min-width: 88px; min-height: 88px; padding: 6px;
+  background: var(--bg); border: 1px solid var(--line); border-radius: 4px;
+}
+.owstage canvas { image-rendering: pixelated; display: block; }
+.owmeta { display: flex; flex-direction: column; gap: 4px; align-items: flex-start; }
+.owdir { font-size: 14px; color: var(--dim); }
+
+/* ------------------------------------------------------- sprite studio -- */
+/* The battle mock: a Game Boy screen, so it gets a black surround rather
+   than sitting flush against the form like a diagram would. */
+.battlewrap { display: flex; justify-content: center; padding: 8px; background: var(--bg);
+  border: 1px solid var(--line); border-radius: 4px; margin: 6px 0; overflow: auto; }
+.battlemock { image-rendering: pixelated; display: block; border: 1px solid var(--line); }
+
+/* The battle preview's palette picker -- a label and a select, not the
+   two-column .tools grid the rest of the studio uses. */
+.palpick { display: flex; align-items: center; gap: 6px; }
+
+/* ------------------------------------------------------ pokemon workspace -- */
+/* The stat meter. A number on its own says nothing to somebody who has never
+   seen a base stat; the same number sitting past the end of the shaded part
+   says everything. So each stat is a row: name, the number, where it lands
+   among the game's own, and the one-word reading. */
+.statrow { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; }
+.statname { flex: 0 0 62px; font-size: 14px; color: var(--dim); }
+.statnum { flex: 0 0 68px; }
+.statword { flex: 0 0 62px; font-size: 13px; color: var(--dim); text-align: right; }
+.statword.good { color: var(--good); }
+.statword.warn { color: var(--sign); }
+.statword.bad { color: var(--bad); }
+.statbar {
+  flex: 1 1 auto; min-width: 60px; height: 12px; position: relative;
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 3px;
+}
+.statbar.live { cursor: pointer; touch-action: none; }
+.statbar.live:hover { border-color: var(--accent); }
+/* where most of the game's own sit */
+.statband { position: absolute; top: 0; bottom: 0; background: var(--panel3); }
+/* the middle one of them */
+.statmid { position: absolute; top: -2px; bottom: -2px; width: 1px; background: var(--dim); }
+/* and yours, drawn last so it is never hidden behind the other two */
+.statyou {
+  position: absolute; top: -3px; bottom: -3px; width: 3px; margin-left: -1px;
+  background: var(--accent2); border-radius: 2px;
+}
+/* where this species' own type usually sits -- inset within the bar's body
+   rather than overshooting it like statyou does, so "yours" still reads as
+   the mark that matters most at a glance. Up to two, one per type. */
+.stattype {
+  position: absolute; top: 2px; bottom: 2px; width: 2px; margin-left: -1px;
+  border-radius: 1px; opacity: 0.85;
+}
+
+/* The evolution line, drawn across rather than down: it is read as a
+   sentence ("this, at level 16, becomes that"), not as a list. */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; margin-bottom: 10px; }
+.chainbox {
+  border: 1px solid var(--line); border-radius: 4px; padding: 3px 8px;
+  background: var(--panel2); font-size: 14px;
+}
+.chainbox.on { border-color: var(--accent); background: var(--panel3); font-weight: 700; }
+.chainbox.ghost { border-style: dashed; color: var(--dimmer); }
+.chainarrow { font-size: 13px; color: var(--dim); }
+.evorow {
+  border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px;
+  margin-top: 8px; background: var(--bg);
+}
+/* The target species' own Name/Look/Stats/Moves, unfolded inline inside its
+   parent's evolution row -- indented and boxed so it reads as "belongs to
+   this row" rather than a continuation of the parent's own step list. */
+.evo-nested {
+  border-left: 2px solid var(--accent); margin-top: 10px; padding: 4px 0 4px 14px;
+}
+.evo-nested .step { border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px; margin-bottom: 8px; }
+
+/* One wild slot: the odds first, because the odds are the reason the row is
+   where it is in the list. */
+.slotrow { display: flex; align-items: center; gap: 6px; margin-bottom: 4px; }
+.slotpct { flex: 0 0 46px; font-size: 13px; color: var(--dim); text-align: right; }
+.slotrow > div { flex: 1; min-width: 0; }
+.slotlvl { flex: 0 0 64px; }
+
+/* 165 moves as tickboxes wants columns, and its own scroll so it cannot push
+   the rest of the step off the screen. */
+.tmgrid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px;
+  max-height: 260px; overflow-y: auto; margin-top: 6px;
+  border: 1px solid var(--line); border-radius: 4px; padding: 6px; background: var(--bg);
+}
+.tmpick { display: block; margin: 0; font-size: 13px; color: var(--ink); cursor: pointer; }
+.palpick span { flex: 0 0 auto; font-size: 14px; color: var(--dim); }
+.palpick select { flex: 1; min-width: 0; max-width: 220px; }
+
+/* Zoom sits right above the sheet it zooms -- a tiny 8px sprite and a
+   64px one need very different amounts of it, so this is a control, not a
+   fixed choice made once on load. */
+.zoomrow { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+.zoomrow button { padding: 4px 10px; font-size: 18px; min-height: 0; }
+.zoomlabel { font-size: 14px; color: var(--dim); min-width: 30px; text-align: center; }
+
+/* An imported sheet is any size at all, so it scrolls inside its own box
+   rather than stretching the dialog to whatever the user dropped in. */
+.sheetwrap {
+  overflow: auto; max-height: 300px; background: var(--bg);
+  border: 1px solid var(--line); border-radius: 4px; padding: 6px; margin-bottom: 8px;
+}
+.sheetwrap canvas { image-rendering: pixelated; display: block; }
+.sheetview { touch-action: none; cursor: crosshair; }
+/* The frame-to-role slots: one per direction the engine draws, each showing
+   the frame currently assigned to it. */
+.roleslots { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 5px; margin: 6px 0; }
+.roleslot {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 5px 3px; min-height: 62px; background: var(--panel2);
+  border: 1px solid var(--line); border-radius: 4px; cursor: pointer;
+}
+.roleslot canvas { image-rendering: pixelated; max-width: 100%; }
+.roleslot span { font-size: 12px; color: var(--dim); line-height: 1.2; text-align: center; }
+.roleslot .none { font-size: 18px; color: var(--dimmer); }
+.roleslot.empty { border-style: dashed; }
+.roleslot.at { border-color: var(--accent); background: var(--panel3); }
+.roleslot.at span { color: var(--accent); }
+/* A slot that has been ticked off as a pose the sheet has not got: still
+   there, still nameable, just not asking for a picture any more. */
+.roleslot.off { opacity: .55; border-style: dashed; }
+.roleslot.off .none { font-size: 12px; color: var(--dimmer); }
+.skipgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 2px 10px; margin: 6px 0 2px; }
+.skipgrid label { margin: 0; font-size: 14px; }
+
+/* --------------------------------------------------------------- cards -- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 8px; }
+.card {
+  border: 1px solid var(--line); border-radius: 6px; padding: 10px; background: var(--panel2);
+  cursor: pointer;
+}
+.card:hover { border-color: var(--accent); }
+.card h3 { margin: 0 0 4px; font-size: 17px; color: var(--accent); }
+.card p { margin: 0; font-size: 14px; color: var(--dim); line-height: 1.4; }
+.card .rung { font-size: 12px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .5px; }
+.card.soon { position: relative; opacity: .5; cursor: default; }
+.card.soon:hover { border-color: var(--line); }
+.card .soon-tag {
+  float: right; font-size: 11px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .5px;
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px;
+}
+
+.wizsteps { display: flex; flex-wrap: wrap; gap: 4px; }
+.wizstep {
+  font-size: 13px; padding: 3px 7px; border-radius: 3px; background: var(--panel2);
+  color: var(--dimmer); border: 1px solid var(--line);
+}
+.wizstep.on { background: var(--accent2); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+.wizstep.done { color: var(--accent); border-color: var(--accent2); }
+
+.item .x {
+  flex: 0 0 auto; min-height: 22px; padding: 0 6px; font-size: 15px; line-height: 1;
+  background: transparent; border-color: transparent; color: var(--dimmer);
+}
+.item .x:hover { color: var(--bad); border-color: var(--bad); }
+
+.check { display: flex; gap: 8px; align-items: flex-start; padding: 5px 0; font-size: 15px; }
+.check .mark { flex: 0 0 16px; color: var(--dimmer); }
+.check.done .mark { color: var(--good); }
+.check.done .what { color: var(--dim); }
+
+/* --------------------------------------------------------------- forms -- */
+.field { margin-bottom: 8px; }
+.field > .k { display: flex; gap: 6px; align-items: baseline; font-size: 14px; color: var(--dim); margin-bottom: 2px; }
+.field > .k .req { color: var(--bad); }
+.field > .k .ty { color: var(--dimmer); font-size: 13px; margin-left: auto; }
+.sub { border-left: 2px solid var(--line); padding-left: 8px; margin-left: 2px; }
+.listrow { display: flex; gap: 4px; align-items: center; margin-bottom: 4px; }
+.listrow > :first-child { flex: 1; min-width: 0; }
+.listrow button { flex: 0 0 auto; min-height: 28px; padding: 0 8px; }
+.lua-note { font-size: 14px; color: var(--sign); background: var(--panel2); border: 1px dashed var(--line); border-radius: 4px; padding: 6px; }
+
+/* A Pokemon team's six rows: species picker, level box, six times over. */
+.monTable { display: grid; grid-template-columns: 1fr 56px; gap: 5px 6px; align-items: center; }
+.monTable-h { font-size: 13px; color: var(--dimmer); text-transform: uppercase; letter-spacing: .5px; }
+
+/* ---------------------------------------------------------- node editor -- */
+/* Both node stages fill their scroll area even when the graph is small, so a
+   right-click anywhere on the empty canvas lands on the stage rather than on
+   the scroll container behind it. renderNodes sets an explicit width/height
+   from the graph's bounding box; these minimums are what stop that box from
+   being the only right-clickable region. */
+#nodeStage, #npcNodeStage { position: relative; min-width: 100%; min-height: 100%; }
+#wires, #npcWires { position: absolute; inset: 0; pointer-events: none; overflow: visible; }
+.node {
+  position: absolute; width: 190px; background: var(--panel2); border: 1px solid var(--line);
+  border-radius: 6px; padding: 6px 8px; cursor: grab; touch-action: none; user-select: none;
+  box-shadow: 0 2px 6px var(--shadow-sm);
+}
+.node.sel { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent), 0 2px 6px var(--shadow-md); }
+.node.start { border-color: var(--accent2); background: var(--node-start-bg); }
+.node.check { border-color: var(--node-check); }
+/* Pokemon team / Pokemon blocks read as a different kind of thing to the
+   rows around them, because they are: they are data a battle block reads,
+   not a step that runs. */
+.node.klass { border-color: var(--node-klass); background: var(--node-klass-bg); width: 226px; cursor: default; }
+.node.klass .nt { color: var(--node-klass-fg); }
+.node.unreached { opacity: .45; border-style: dashed; }
+/* A block's title and summary used to clip at a fixed line/height and
+   ellipsize -- fine for "Say something" but not for a long text/flag/label,
+   which just vanished past the cut. Both wrap and the node grows to fit
+   instead, the same way it already grows for a block with many exits. */
+.node .nt { font-size: 14px; color: var(--accent); font-weight: 700; word-break: break-word; }
+.node .na { font-size: 14px; color: var(--dim); margin-top: 2px; word-break: break-word; white-space: pre-line; }
+/* The team block's rows, drawn on the node itself -- tight enough to fit a
+   226px block, but each control still clears a comfortable tap target. */
+.node .monTable-node { margin-top: 4px; grid-template-columns: 1fr 44px; gap: 3px 4px; cursor: default; }
+.node .monTable-node select, .node .monTable-node input {
+  font-size: 14px; padding: 3px 4px; min-height: 26px; cursor: pointer;
+}
+.node .monTable-node input { cursor: text; }
+.node .socks { display: flex; gap: 4px; margin-top: 6px; }
+/* Four exits will not fit across 190px, so a block with more than two stacks
+   them instead of squeezing the labels into nothing. */
+.node .socks.many { flex-direction: column; gap: 3px; }
+.node .socks.many .sock { min-height: 23px; text-align: left; padding-left: 6px; }
+/* Room for the side port (below) so "then" -- flex:1, otherwise full width --
+   does not run underneath it. */
+.node.has-side .socks { margin-right: 46px; }
+.sock.team { color: var(--node-team); }
+.sock {
+  flex: 1; font-size: 13px; text-align: center; border: 1px solid var(--line);
+  border-radius: 3px; padding: 3px 0; color: var(--dim); background: var(--panel);
+  cursor: pointer; min-height: 30px;
+}
+.sock:hover { border-color: var(--accent); color: var(--accent); }
+.sock.arm { background: var(--accent); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+.sock.yes { color: var(--good); }
+.sock.no  { color: var(--bad); }
+/* A port drawn on the block's own edge instead of in the bottom row -- the
+   team exit reads left-to-right (trainer → its party), not top-to-bottom
+   like every other exit, so it sits where that reads naturally. It stays
+   inside the block's own border (unlike a bottom sock, it is not laid out
+   by flex, so nothing else pushes it there) rather than floating off the
+   edge into open canvas. */
+.sock.side { position: absolute; bottom: 6px; flex: 0 0 auto; width: 40px; min-height: 22px; padding: 3px 0; z-index: 2; }
+.sock.side.side-right { right: 4px; }
+.sock.side.side-left  { left: 4px; }
+.wire { stroke: var(--dimmer); stroke-width: 2; fill: none; }
+.wire.yes { stroke: var(--good); }
+.wire.no  { stroke: var(--bad); }
+.wire.team { stroke: var(--node-team); }
+
+.palette-group { margin-bottom: 4px; }
+.palette-group > summary { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--dim); cursor: pointer; padding: 5px 2px; list-style: none; }
+.palette-group > summary::-webkit-details-marker { display: none; }
+.palette-group > summary::before { content: "▸ "; }
+.palette-group[open] > summary::before { content: "▾ "; }
+.verb { display: block; width: 100%; text-align: left; margin-bottom: 3px; font-size: 14px; padding: 5px 7px; }
+.verb small { color: var(--dimmer); display: block; font-size: 13px; }
+
+/* ------------------------------------------------ right-click node search -- */
+.nodemenu {
+  position: fixed; z-index: 200; width: 260px; max-height: 70vh;
+  background: var(--panel); border: 1px solid var(--accent2); border-radius: 6px;
+  box-shadow: 0 8px 24px var(--shadow-lg); padding: 8px; display: flex; flex-direction: column; gap: 6px;
+}
+.nodemenu-list { overflow-y: auto; }
+.nodemenu-list .empty { padding: 10px 4px; }
+
+/* ------------------------------------------------------------- dry run -- */
+#dryPanel { border-top: 1px solid var(--line); background: var(--panel); padding: 8px; }
+.gbbox {
+  background: var(--ink); color: var(--panel); border: 3px solid var(--accent2); border-radius: 3px;
+  padding: 10px; font-size: 17px; min-height: 62px; white-space: pre-wrap; line-height: 1.35;
+}
+.trace { font-size: 14px; color: var(--dim); max-height: 150px; overflow-y: auto; margin-top: 6px; }
+.trace div { padding: 1px 0; }
+.trace .cur { color: var(--accent); }
+
+/* --------------------------------------------------------- map editor -- */
+/* Column flex rather than plain block: #mapBar (sticky) always claims full
+   width at the top, and the canvas's own `margin: auto` centers it in
+   whatever space is left -- both axes, same trick either way -- while a map
+   too big for the view still overflows into this pane's own scrollbar
+   exactly as before, since auto margins collapse to 0 once there's nothing
+   left to give them. */
+#mapWrap { padding: 10px; display: flex; flex-direction: column; }
+#mapBar { flex: 0 0 auto; }
+#mapCanvas { image-rendering: pixelated; display: block; touch-action: none; cursor: crosshair; margin: auto; }
+#blockPal { display: flex; flex-wrap: wrap; gap: 2px; background: var(--bg); padding: 4px; border: 1px solid var(--line); border-radius: 4px; max-height: 260px; overflow-y: auto; }
+#blockPal canvas { display: block; image-rendering: pixelated; cursor: pointer; outline: 1px solid transparent; }
+#blockPal canvas.sel { outline: 2px solid var(--accent); position: relative; z-index: 1; }
+.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+.tools button.on { background: var(--accent2); color: var(--ink-on-accent); border-color: var(--accent); font-weight: 700; }
+.toolgroup-label { font-size: 11px; text-transform: uppercase; letter-spacing: .5px; color: var(--dim); margin: 8px 0 3px; }
+.toolgroup-label:first-child { margin-top: 0; }
+
+/* ---------------------------------------------------------------- code -- */
+pre.code {
+  /* <pre> carries a UA font-family, so it inherits nothing from body. */
+  font-family: var(--font-body);
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; padding: 10px;
+  font-size: 15px; line-height: 1.5; overflow: auto; margin: 0; white-space: pre;
+  max-height: 100%;
+}
+/* Syntax colours for a light code block -- the old ones were picked against
+   near-black and turn to pastel mush on #e6ebf3. */
+.k1 { color: var(--code-k1); } .k2 { color: var(--accent2); } .k3 { color: var(--code-k3); } .k4 { color: var(--dimmer); }
+
+/* ------------------------------------------------------------- dialogs -- */
+dialog {
+  background: var(--panel); color: var(--ink); border: 1px solid var(--accent2);
+  border-radius: 6px; padding: 0; width: min(620px, 94vw); max-height: 88vh;
+}
+dialog::backdrop { background: var(--backdrop); }
+.dlghead { display: flex; gap: 8px; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); }
+.dlghead h3 { margin: 0; font-size: 17px; color: var(--accent); flex: 1; }
+.dlghead button { flex: 0 0 auto; }
+.dlgbody { padding: 12px; overflow-y: auto; max-height: calc(88vh - 56px); }
+
+#toast {
+  position: fixed; left: 50%; transform: translateX(-50%); bottom: 18px; z-index: 99;
+  background: var(--panel3); border: 1px solid var(--accent2); color: var(--ink);
+  padding: 8px 14px; border-radius: 5px; font-size: 15px; opacity: 0; transition: opacity .2s;
+  pointer-events: none; max-width: 90vw;
+}
+#toast.on { opacity: 1; }
+#toast.bad { border-color: var(--bad); color: var(--bad); }
+
+/* ------------------------------------------------------------- desktop -- */
+/* This was drawn on a phone, where every column is the width of the screen
+   and there is nothing to decide. On a monitor those same columns are the
+   width of a monitor, which nothing in here was built for: a step's body is
+   capped at 620px, so the workspace ends up pinned to the left edge with a
+   metre of empty panel beside it -- and a step's status label, which sits at
+   the far end of its heading, ends up alone on the right of the screen a
+   thousand pixels from the words it belongs to.
+
+   So the two columns that are prose and forms get a reading width and sit in
+   the middle. The editor grids -- three panes with a canvas between them, on
+   the Scripts, Maps and All-records tabs -- are left alone, because those
+   genuinely want every pixel of a wide screen. */
+@media (min-width: 1000px) {
+  #tab-start .pane > * { max-width: var(--wide); margin-left: auto; margin-right: auto; }
+  .worksteps > * { max-width: var(--read); margin-left: auto; margin-right: auto; }
+}
+
+/* -------------------------------------------------------------- mobile -- */
+@media (max-width: 900px) {
+  .tab.on { display: flex; flex-direction: column; overflow-y: auto; }
+  .pane, .stage { overflow: visible; max-height: none; }
+  .pane + .pane, .stage { border-left: 0; border-top: 1px solid var(--line); }
+  .stage { min-height: 320px; overflow: auto; }
+  .node { width: 168px; }
+  header h1 small { display: none; }
+
+  /* The workspace stays a workspace on a phone -- it just gets its own
+     scroll instead of riding the page's, or the docked editor would end up
+     a mile below the last step. */
+  #tab-content.tab.on { overflow: hidden; }
+  #tab-content .content-shell { flex: 1; min-height: 0; }
+  #tab-content .pane { overflow-y: auto; }
+  #sub-records.on, #sub-map.on { display: flex; flex-direction: column; overflow-y: auto; }
+  #sub-records .pane + .pane, #sub-map .pane + .pane { border-left: 0; border-top: 1px solid var(--line); }
+  .dockcols { grid-template-columns: 1fr; grid-template-rows: minmax(0, 1fr) auto; overflow-y: auto; }
+  /* The desktop rule zeroes this so the canvas can shrink inside its column;
+     stacked, there is no column to shrink into and it would collapse to
+     nothing. */
+  .dockcols > .stage { min-height: 260px; }
+  /* No room for a block palette beside the canvas -- blocks get added from
+     the Scripts tab, which is the one with room for them. */
+  .dockcols > .docknarrow:first-child { display: none; }
+  .step { padding: 14px 12px; }
+}

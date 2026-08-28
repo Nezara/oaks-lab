@@ -1,0 +1,4430 @@
+{
+ "generatedAt": "2026-08-28",
+ "source": "github.com/bryanthaboi/gen1recomp/wiki",
+ "modApi": 2,
+ "registries": {
+  "ai_classes": {
+   "id": "ai_classes",
+   "fields": {
+    "brain": {
+     "name": "brain",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "chance": {
+     "name": "chance",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 256
+     },
+     "required": false
+    },
+    "choose": {
+     "name": "choose",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "hpBelow": {
+     "name": "hpBelow",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "item": {
+     "name": "item",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "required": false
+    },
+    "kind": {
+     "name": "kind",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "class",
+       "layer",
+       "brain"
+      ]
+     },
+     "required": false
+    },
+    "onStatus": {
+     "name": "onStatus",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "score": {
+     "name": "score",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "switch": {
+     "name": "switch",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "switchBelow": {
+     "name": "switchBelow",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "switchChance": {
+     "name": "switchChance",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 256
+     },
+     "required": false
+    },
+    "uses": {
+     "name": "uses",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "brain",
+    "chance",
+    "choose",
+    "hpBelow",
+    "item",
+    "kind",
+    "onStatus",
+    "score",
+    "switch",
+    "switchBelow",
+    "switchChance",
+    "uses"
+   ],
+   "semantics": "record",
+   "target": "Data.ai_classes",
+   "example": "mod.content.ai_classes:patch(\"OPP_BROCK\", { uses = 9 })"
+  },
+  "apricorns": {
+   "id": "apricorns",
+   "fields": {
+    "apricorn": {
+     "name": "apricorn",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "required": true
+    },
+    "ball": {
+     "name": "ball",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "required": true
+    },
+    "event": {
+     "name": "event",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "apricorn",
+    "ball",
+    "event",
+    "index"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.apricorns:override(\"RED_APRICORN\", { apricorn = \"RED_APRICORN\", ball = \"ULTRA_BALL\", event = 600, index = 1 })"
+  },
+  "audio": {
+   "id": "audio",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.audio",
+   "value": "any value",
+   "deprecated": true,
+   "example": "mod.content.audio:override(\"mapSongs\", { ... })",
+   "valueType": {
+    "kind": "any"
+   }
+  },
+  "balls": {
+   "id": "balls",
+   "fields": {
+    "attempt": {
+     "name": "attempt",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "autoCatch": {
+     "name": "autoCatch",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "flicker": {
+     "name": "flicker",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "hpFactor": {
+     "name": "hpFactor",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "randMax": {
+     "name": "randMax",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "tossAnim": {
+     "name": "tossAnim",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "wobbleFactor": {
+     "name": "wobbleFactor",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "attempt",
+    "autoCatch",
+    "flicker",
+    "hpFactor",
+    "randMax",
+    "tossAnim",
+    "wobbleFactor"
+   ],
+   "semantics": "record",
+   "target": "Data.balls",
+   "example": "mod.content.balls:override(\"GREAT_BALL\", { randMax = 180, hpFactor = 12 })"
+  },
+  "battle_anims": {
+   "id": "battle_anims",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.battle_anims",
+   "value": "{seq, source?} | {blocks, type?} | {height, path, source?, tiles, width}",
+   "example": "mod.content.battle_anims:register(\"SHADOW_BALL\", { seq = { ... } })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "seq",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "source",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "struct",
+     "struct",
+     "struct"
+    ]
+   }
+  },
+  "battle_sprite_scales": {
+   "id": "battle_sprite_scales",
+   "fields": {
+    "path": {
+     "name": "path",
+     "type": {
+      "kind": "path"
+     },
+     "required": true
+    },
+    "scale": {
+     "name": "scale",
+     "type": {
+      "kind": "number",
+      "min": 0.25,
+      "max": 4
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "path",
+    "scale"
+   ],
+   "semantics": "record",
+   "target": "Data.battle_sprite_scales",
+   "example": "mod.content.battle_sprite_scales:register(\"abra_back\", {\n  path = \"assets/generated/battle/back/abrab.png\",\n  scale = 1.5,\n})"
+  },
+  "commands": {
+   "id": "commands",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.commands",
+   "value": "function | {blocking?, fn, foreground?}",
+   "example": "mod.content.commands:register(\"shake_screen\", function(ctx, frames) ... end)",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "blocking",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "fn",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "foreground",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "lua",
+     "struct"
+    ]
+   }
+  },
+  "constants": {
+   "id": "constants",
+   "fields": {},
+   "order": [],
+   "semantics": "deep",
+   "target": "Data.constants",
+   "example": "mod.content.constants:patch(\"levelCap\", 80)"
+  },
+  "cries": {
+   "id": "cries",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.audio.cries",
+   "value": "{header, length, pitch} | {file} | {base, length?, pitch?} | {chip, length?, pitch?}",
+   "example": "mod.content.cries:patch(\"PIKACHU\", { pitch = 200 })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "header",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "length",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "pitch",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "struct",
+     "struct",
+     "struct",
+     "struct"
+    ]
+   }
+  },
+  "decorations": {
+   "id": "decorations",
+   "fields": {
+    "action": {
+     "name": "action",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "flag": {
+     "name": "flag",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "sprite": {
+     "name": "sprite",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "type": {
+     "name": "type",
+     "type": {
+      "kind": "int",
+      "min": 1,
+      "max": 6
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "action",
+    "flag",
+    "name",
+    "sprite",
+    "type"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.decorations:patch(\"deco:2\", { name = \"COZY\" })"
+  },
+  "encounters": {
+   "id": "encounters",
+   "fields": {
+    "grass": {
+     "name": "grass",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "rate",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "slots",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "water": {
+     "name": "water",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "rate",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "slots",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "grass",
+    "id",
+    "water"
+   ],
+   "semantics": "record",
+   "target": "Data.encounters",
+   "example": "mod.content.encounters:patch(\"ROUTE_1\", { grass = { rate = 30 } })"
+  },
+  "evolution_methods": {
+   "id": "evolution_methods",
+   "fields": {
+    "check": {
+     "name": "check",
+     "type": {
+      "kind": "lua"
+     },
+     "required": true
+    },
+    "describe": {
+     "name": "describe",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "check",
+    "describe"
+   ],
+   "semantics": "record",
+   "target": "Data.evolution_methods",
+   "example": "mod.content.evolution_methods:register(\"FRIENDSHIP\", { check = fn })"
+  },
+  "field": {
+   "id": "field",
+   "fields": {},
+   "order": [],
+   "semantics": "deep",
+   "target": "Data.field",
+   "example": "mod.content.field:patch(\"boot\", { startMap = \"SABLE_COVE\" })"
+  },
+  "font": {
+   "id": "font",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.font",
+   "value": "{advance?, base, charmap?, glyphsPerRow?, image} | {code, seq} | {bold?, file?, size?, spacing?, tiles?, yOffset?}",
+   "example": "mod.content.font:register(\"charmap:hiragana_a\", { seq = \"あ\", code = 256 })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "advance",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "base",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "charmap",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "glyphsPerRow",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "image",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "struct",
+     "struct",
+     "struct"
+    ]
+   }
+  },
+  "growth_rates": {
+   "id": "growth_rates",
+   "fields": {
+    "expForLevel": {
+     "name": "expForLevel",
+     "type": {
+      "kind": "lua"
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "expForLevel"
+   ],
+   "semantics": "record",
+   "target": "Data.growth_rates",
+   "example": "mod.content.growth_rates:register(\"ERRATIC\", { expForLevel = fn })"
+  },
+  "held_items": {
+   "id": "held_items",
+   "fields": {
+    "heldEffect": {
+     "name": "heldEffect",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "heldParameter": {
+     "name": "heldParameter",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "heldEffect",
+    "heldParameter"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.held_items:override(\"LEFTOVERS\", { heldEffect = \"HELD_LEFTOVERS\", heldParameter = 0 })"
+  },
+  "icons": {
+   "id": "icons",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.icons.bySpecies",
+   "value": "string | {frames?, image}",
+   "example": "mod.content.icons:register(\"MODMON\", \"QUADRUPED\")  -- a built-in name, or { image = mod.assets:path(\"icon.png\"), frames = 2 }",
+   "valueType": {
+    "kind": "string",
+    "alts": [
+     "string",
+     "struct"
+    ]
+   }
+  },
+  "item_effects": {
+   "id": "item_effects",
+   "fields": {
+    "battle": {
+     "name": "battle",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "field": {
+     "name": "field",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "needsTarget": {
+     "name": "needsTarget",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "use": {
+     "name": "use",
+     "type": {
+      "kind": "lua"
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "battle",
+    "field",
+    "needsTarget",
+    "use"
+   ],
+   "semantics": "record",
+   "target": "Data.item_effects",
+   "example": "mod.content.item_effects:register(\"MOON_FLUTE\", { use = fn, field = true })"
+  },
+  "items": {
+   "id": "items",
+   "fields": {
+    "ball": {
+     "name": "ball",
+     "type": {
+      "kind": "ref",
+      "registry": "balls"
+     },
+     "required": false
+    },
+    "effect": {
+     "name": "effect",
+     "type": {
+      "kind": "ref",
+      "registry": "item_effects"
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "machine": {
+     "name": "machine",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "kind",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "move",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "number",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": false
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "needsTarget": {
+     "name": "needsTarget",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "price": {
+     "name": "price",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "tossable": {
+     "name": "tossable",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "ball",
+    "effect",
+    "id",
+    "index",
+    "machine",
+    "name",
+    "needsTarget",
+    "price",
+    "tossable"
+   ],
+   "semantics": "record",
+   "target": "Data.items",
+   "example": "mod.content.items:patch(\"POTION\", { price = 100 })"
+  },
+  "landmarks": {
+   "id": "landmarks",
+   "fields": {
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "x": {
+     "name": "x",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "y": {
+     "name": "y",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "id",
+    "index",
+    "name",
+    "x",
+    "y"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.landmarks:patch(\"LANDMARK_ROUTE_29\", { x = 12 })"
+  },
+  "link_fields": {
+   "id": "link_fields",
+   "fields": {
+    "pack": {
+     "name": "pack",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "rev": {
+     "name": "rev",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "alts": [
+       "int",
+       "string"
+      ]
+     },
+     "required": true
+    },
+    "unpack": {
+     "name": "unpack",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "pack",
+    "rev",
+    "unpack"
+   ],
+   "semantics": "record",
+   "target": "Data.link_fields",
+   "example": "mod.content.link_fields:register(\"held_item\", { rev = 1, pack = fn, unpack = fn })"
+  },
+  "map_scripts": {
+   "id": "map_scripts",
+   "fields": {},
+   "order": [],
+   "semantics": "compose",
+   "target": "Data.map_scripts",
+   "value": "{onBoulderMoved?, onEnter?, onInteract?, onStep?, onVictory?, priority?, scripts?, snorlaxWake?, talk?}",
+   "example": "mod.content.map_scripts:register(\"PALLET_TOWN\", { talk = { ... } })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "onBoulderMoved",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "onEnter",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "onInteract",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "onStep",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "onVictory",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "priority",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "scripts",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "snorlaxWake",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "talk",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ]
+   }
+  },
+  "map_songs": {
+   "id": "map_songs",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.audio.mapSongs",
+   "value": "music id",
+   "example": "mod.content.map_songs:override(\"PALLET_TOWN\", \"Music_Routes1\")",
+   "valueType": {
+    "kind": "ref",
+    "registry": "music"
+   }
+  },
+  "maps": {
+   "id": "maps",
+   "fields": {
+    "blocks": {
+     "name": "blocks",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "int",
+       "min": 0,
+       "max": 255
+      }
+     },
+     "required": true
+    },
+    "borderBlock": {
+     "name": "borderBlock",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "connections": {
+     "name": "connections",
+     "type": {
+      "kind": "map",
+      "key": {
+       "kind": "enum",
+       "options": [
+        "north"
+       ]
+      },
+      "value": {
+       "kind": "any"
+      },
+      "alts": [
+       "map",
+       "any",
+       "any",
+       "any"
+      ]
+     },
+     "required": false
+    },
+    "height": {
+     "name": "height",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": false
+    },
+    "label": {
+     "name": "label",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "objects": {
+     "name": "objects",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "any"
+      }
+     },
+     "required": false
+    },
+    "palette": {
+     "name": "palette",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "signs": {
+     "name": "signs",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "any"
+      }
+     },
+     "required": false
+    },
+    "tileset": {
+     "name": "tileset",
+     "type": {
+      "kind": "ref",
+      "registry": "tilesets"
+     },
+     "required": true
+    },
+    "warps": {
+     "name": "warps",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "struct",
+       "fields": [
+        {
+         "name": "destGroup",
+         "optional": true,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "destMap",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "destMapNum",
+         "optional": true,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "destWarp",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "x",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "y",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        }
+       ]
+      }
+     },
+     "required": false
+    },
+    "width": {
+     "name": "width",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "blocks",
+    "borderBlock",
+    "connections",
+    "height",
+    "id",
+    "index",
+    "label",
+    "objects",
+    "palette",
+    "signs",
+    "tileset",
+    "warps",
+    "width"
+   ],
+   "semantics": "record",
+   "target": "Data.maps",
+   "example": "mod.content.maps:register(\"MY_CAVE\", { tileset = \"CAVERN\", ... })"
+  },
+  "migrations": {
+   "id": "migrations",
+   "fields": {},
+   "order": [],
+   "semantics": "compose",
+   "target": "none",
+   "value": "{run, since}",
+   "example": "mod.content.migrations:register(\"my_mod\", { since = \"1.0.0\", run = fn })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "run",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "since",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ]
+   }
+  },
+  "move_effects": {
+   "id": "move_effects",
+   "fields": {
+    "accuracyChecked": {
+     "name": "accuracyChecked",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "kind": {
+     "name": "kind",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "primary",
+       "secondary",
+       "full"
+      ]
+     },
+     "required": true
+    },
+    "run": {
+     "name": "run",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "accuracyChecked",
+    "kind",
+    "run"
+   ],
+   "semantics": "record",
+   "target": "Data.move_effects",
+   "example": "mod.content.move_effects:register(\"DRAIN_PP_EFFECT\", { kind = \"primary\", run = fn })"
+  },
+  "moves": {
+   "id": "moves",
+   "fields": {
+    "accuracy": {
+     "name": "accuracy",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 100
+     },
+     "required": true
+    },
+    "anim": {
+     "name": "anim",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    },
+    "category": {
+     "name": "category",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "physical",
+       "special",
+       "status"
+      ]
+     },
+     "required": false
+    },
+    "chargeText": {
+     "name": "chargeText",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "counterable": {
+     "name": "counterable",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "effect": {
+     "name": "effect",
+     "type": {
+      "kind": "ref",
+      "registry": "move_effects"
+     },
+     "required": true
+    },
+    "fixedDamage": {
+     "name": "fixedDamage",
+     "type": {
+      "kind": "int",
+      "min": 1,
+      "alts": [
+       "int",
+       "lua"
+      ]
+     },
+     "required": false
+    },
+    "highCrit": {
+     "name": "highCrit",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "multiHit": {
+     "name": "multiHit",
+     "type": {
+      "kind": "int",
+      "min": 1,
+      "alts": [
+       "int",
+       "list"
+      ]
+     },
+     "required": false
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "power": {
+     "name": "power",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "pp": {
+     "name": "pp",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 64
+     },
+     "required": true
+    },
+    "priority": {
+     "name": "priority",
+     "type": {
+      "kind": "int",
+      "min": -7,
+      "max": 7
+     },
+     "required": false
+    },
+    "semiInvulnerable": {
+     "name": "semiInvulnerable",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "type": {
+     "name": "type",
+     "type": {
+      "kind": "ref",
+      "registry": "type_chart"
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "accuracy",
+    "anim",
+    "category",
+    "chargeText",
+    "counterable",
+    "effect",
+    "fixedDamage",
+    "highCrit",
+    "id",
+    "index",
+    "multiHit",
+    "name",
+    "power",
+    "pp",
+    "priority",
+    "semiInvulnerable",
+    "type"
+   ],
+   "semantics": "record",
+   "target": "Data.moves",
+   "example": "mod.content.moves:patch(\"BLIZZARD\", { accuracy = 70 })"
+  },
+  "music": {
+   "id": "music",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.audio.songs",
+   "value": "{address, bank, engine?} | {file, intro?, loopFile?, loopSeconds?, seconds?} | {channels, drums?, program, waves?} | {chip}",
+   "example": "mod.content.music:register(\"MOD_SONG\", { file = \"song.ogg\" })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "address",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "bank",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     },
+     {
+      "name": "engine",
+      "optional": true,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "struct",
+     "struct",
+     "struct",
+     "struct"
+    ]
+   }
+  },
+  "palettes": {
+   "id": "palettes",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.palettes.palettes",
+   "value": "list of list of integer 0..255 | {colors}",
+   "example": "mod.content.palettes:override(\"MEWMON\", { {255,255,255}, ... })",
+   "valueType": {
+    "kind": "list",
+    "of": {
+     "kind": "list",
+     "of": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     }
+    },
+    "alts": [
+     "list",
+     "struct"
+    ]
+   }
+  },
+  "phone_contacts": {
+   "id": "phone_contacts",
+   "fields": {
+    "callee": {
+     "name": "callee",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "calleeKey": {
+     "name": "calleeKey",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "calleeTime": {
+     "name": "calleeTime",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 7
+     },
+     "required": false
+    },
+    "caller": {
+     "name": "caller",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "callerKey": {
+     "name": "callerKey",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "callerTime": {
+     "name": "callerTime",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 7
+     },
+     "required": false
+    },
+    "class": {
+     "name": "class",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": true
+    },
+    "map": {
+     "name": "map",
+     "type": {
+      "kind": "ref",
+      "registry": "maps"
+     },
+     "required": false
+    },
+    "member": {
+     "name": "member",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "number": {
+     "name": "number",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "callee",
+    "calleeKey",
+    "calleeTime",
+    "caller",
+    "callerKey",
+    "callerTime",
+    "class",
+    "index",
+    "map",
+    "member",
+    "number"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.phone_contacts:patch(\"PHONE_YOUNGSTER_JOEY\", { map = \"ROUTE_31\" })"
+  },
+  "pokemon": {
+   "id": "pokemon",
+   "fields": {
+    "baseExp": {
+     "name": "baseExp",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "baseStats": {
+     "name": "baseStats",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "attack",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "defense",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "hp",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "special",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "speed",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": true
+    },
+    "battleScaleBack": {
+     "name": "battleScaleBack",
+     "type": {
+      "kind": "number",
+      "min": 0.25,
+      "max": 4
+     },
+     "required": false
+    },
+    "battleScaleFront": {
+     "name": "battleScaleFront",
+     "type": {
+      "kind": "number",
+      "min": 0.25,
+      "max": 4
+     },
+     "required": false
+    },
+    "catchRate": {
+     "name": "catchRate",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "cry": {
+     "name": "cry",
+     "type": {
+      "kind": "ref",
+      "registry": "cries"
+     },
+     "required": false
+    },
+    "dex": {
+     "name": "dex",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    },
+    "dexEntry": {
+     "name": "dexEntry",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "heightFt",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "heightIn",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "heightM",
+        "optional": true,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "kind",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "text",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "weight",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "weightKg",
+        "optional": true,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": false
+    },
+    "evolutions": {
+     "name": "evolutions",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "struct",
+       "fields": [
+        {
+         "name": "item",
+         "optional": true,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "level",
+         "optional": true,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "method",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "species",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        }
+       ]
+      }
+     },
+     "required": true
+    },
+    "frontSize": {
+     "name": "frontSize",
+     "type": {
+      "kind": "int",
+      "min": 1,
+      "max": 7
+     },
+     "required": true
+    },
+    "growthRate": {
+     "name": "growthRate",
+     "type": {
+      "kind": "ref",
+      "registry": "growth_rates"
+     },
+     "required": true
+    },
+    "icon": {
+     "name": "icon",
+     "type": {
+      "kind": "string",
+      "alts": [
+       "string",
+       "struct"
+      ]
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "learnset": {
+     "name": "learnset",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "struct",
+       "fields": [
+        {
+         "name": "level",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        },
+        {
+         "name": "move",
+         "optional": false,
+         "type": {
+          "kind": "any"
+         }
+        }
+       ]
+      }
+     },
+     "required": true
+    },
+    "level1Moves": {
+     "name": "level1Moves",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "ref",
+       "registry": "moves"
+      }
+     },
+     "required": true
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "palette": {
+     "name": "palette",
+     "type": {
+      "kind": "ref",
+      "registry": "palettes"
+     },
+     "required": false
+    },
+    "spriteBack": {
+     "name": "spriteBack",
+     "type": {
+      "kind": "path"
+     },
+     "required": true
+    },
+    "spriteFront": {
+     "name": "spriteFront",
+     "type": {
+      "kind": "path"
+     },
+     "required": true
+    },
+    "tmhm": {
+     "name": "tmhm",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "ref",
+       "registry": "moves"
+      }
+     },
+     "required": false
+    },
+    "trueColor": {
+     "name": "trueColor",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "types": {
+     "name": "types",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "ref",
+       "registry": "type_chart"
+      }
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "baseExp",
+    "baseStats",
+    "battleScaleBack",
+    "battleScaleFront",
+    "catchRate",
+    "cry",
+    "dex",
+    "dexEntry",
+    "evolutions",
+    "frontSize",
+    "growthRate",
+    "icon",
+    "id",
+    "index",
+    "learnset",
+    "level1Moves",
+    "name",
+    "palette",
+    "spriteBack",
+    "spriteFront",
+    "tmhm",
+    "trueColor",
+    "types"
+   ],
+   "semantics": "record",
+   "target": "Data.pokemon",
+   "example": "mod.content.pokemon:patch(\"MEW\", { baseStats = { attack = 120 } })"
+  },
+  "radio_channels": {
+   "id": "radio_channels",
+   "fields": {
+    "channel": {
+     "name": "channel",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": true
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "channel",
+    "name"
+   ],
+   "semantics": "record",
+   "target": "none",
+   "example": "mod.content.radio_channels:register(\"PIRATE_RADIO\", { channel = 9, name = \"PIRATE RADIO\" })"
+  },
+  "render_pipelines": {
+   "id": "render_pipelines",
+   "fields": {
+    "available": {
+     "name": "available",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "drawWorld": {
+     "name": "drawWorld",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "gate": {
+     "name": "gate",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "hotkey": {
+     "name": "hotkey",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "invalidate": {
+     "name": "invalidate",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "label": {
+     "name": "label",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "levels": {
+     "name": "levels",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "string"
+      }
+     },
+     "required": false
+    },
+    "present": {
+     "name": "present",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "priority": {
+     "name": "priority",
+     "type": {
+      "kind": "number"
+     },
+     "required": false
+    },
+    "update": {
+     "name": "update",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "worldPresent": {
+     "name": "worldPresent",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "available",
+    "drawWorld",
+    "gate",
+    "hotkey",
+    "invalidate",
+    "label",
+    "levels",
+    "present",
+    "priority",
+    "update",
+    "worldPresent"
+   ],
+   "semantics": "record",
+   "target": "Data.render_pipelines",
+   "example": "mod.content.render_pipelines:register(\"voxel\", { label = \"VOXEL\", levels = { \"OFF\", \"15\", \"35\", \"50\" }, drawWorld = fn })"
+  },
+  "rulesets": {
+   "id": "rulesets",
+   "fields": {
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    }
+   },
+   "order": [
+    "name"
+   ],
+   "semantics": "record",
+   "target": "Data.rulesets",
+   "example": "mod.content.rulesets:register(\"no_crits\", { name = \"no crits\", critRate = 0 })"
+  },
+  "screens": {
+   "id": "screens",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.screens",
+   "value": "function | {new}",
+   "example": "mod.content.screens:register(\"QuestLog\", { new = function(game) ... end })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "new",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "lua",
+     "struct"
+    ]
+   }
+  },
+  "sfx": {
+   "id": "sfx",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.audio.sfx",
+   "value": "string | {address, bank, engine?} | {file} | {chip}",
+   "example": "mod.content.sfx:register(\"SFX_MOD_CHIME\", { file = \"chime.ogg\" })",
+   "valueType": {
+    "kind": "string",
+    "alts": [
+     "string",
+     "struct",
+     "struct",
+     "struct"
+    ]
+   }
+  },
+  "sprites": {
+   "id": "sprites",
+   "fields": {
+    "anchorX": {
+     "name": "anchorX",
+     "type": {
+      "kind": "number"
+     },
+     "required": false
+    },
+    "anchorY": {
+     "name": "anchorY",
+     "type": {
+      "kind": "number"
+     },
+     "required": false
+    },
+    "frameHeight": {
+     "name": "frameHeight",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "frameWidth": {
+     "name": "frameWidth",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "frames": {
+     "name": "frames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "image": {
+     "name": "image",
+     "type": {
+      "kind": "path"
+     },
+     "required": true
+    },
+    "paletteSource": {
+     "name": "paletteSource",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "trueColor": {
+     "name": "trueColor",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "walker": {
+     "name": "walker",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "anchorX",
+    "anchorY",
+    "frameHeight",
+    "frameWidth",
+    "frames",
+    "id",
+    "image",
+    "paletteSource",
+    "trueColor",
+    "walker"
+   ],
+   "semantics": "record",
+   "target": "Data.sprites",
+   "example": "mod.content.sprites:register(\"SPRITE_HERO\", { image = \"...\", frames = 6 })"
+  },
+  "statuses": {
+   "id": "statuses",
+   "fields": {
+    "beforeMove": {
+     "name": "beforeMove",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "beforeMovePriority": {
+     "name": "beforeMovePriority",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": false
+    },
+    "canInflict": {
+     "name": "canInflict",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "catchBonus": {
+     "name": "catchBonus",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "cureOnSwitch": {
+     "name": "cureOnSwitch",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "hudLabel": {
+     "name": "hudLabel",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "label": {
+     "name": "label",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "onInflict": {
+     "name": "onInflict",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "residual": {
+     "name": "residual",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "shakeBonus": {
+     "name": "shakeBonus",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "statPenalty": {
+     "name": "statPenalty",
+     "type": {
+      "kind": "struct",
+      "fields": [
+       {
+        "name": "div",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       },
+       {
+        "name": "stat",
+        "optional": false,
+        "type": {
+         "kind": "any"
+        }
+       }
+      ]
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "beforeMove",
+    "beforeMovePriority",
+    "canInflict",
+    "catchBonus",
+    "cureOnSwitch",
+    "hudLabel",
+    "id",
+    "label",
+    "onInflict",
+    "residual",
+    "shakeBonus",
+    "statPenalty"
+   ],
+   "semantics": "record",
+   "target": "Data.statuses",
+   "example": "mod.content.statuses:patch(\"BRN\", { catchBonus = 12 })"
+  },
+  "strings": {
+   "id": "strings",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.strings",
+   "value": "string",
+   "example": "mod.content.strings:override(\"But, it failed!\", \"Echec !\")",
+   "valueType": {
+    "kind": "string"
+   }
+  },
+  "text": {
+   "id": "text",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.text",
+   "value": "string",
+   "example": "mod.content.text:override(\"_PalletTownText1\", \"HELLO!\")",
+   "valueType": {
+    "kind": "string"
+   }
+  },
+  "text_pointers": {
+   "id": "text_pointers",
+   "fields": {},
+   "order": [],
+   "semantics": "deep",
+   "target": "Data.text_pointers",
+   "value": "map of string -> {asm?, cableClub?, label?, mart?, nurse?, pc?, text?}",
+   "example": "mod.content.text_pointers:patch(\"PalletTown\", { TEXT_PALLETTOWN_SIGN = { text = \"_MySign\" } })",
+   "valueType": {
+    "kind": "map",
+    "key": {
+     "kind": "string"
+    },
+    "value": {
+     "kind": "struct",
+     "fields": [
+      {
+       "name": "asm",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "cableClub",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "label",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "mart",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "nurse",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "pc",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      },
+      {
+       "name": "text",
+       "optional": true,
+       "type": {
+        "kind": "any"
+       }
+      }
+     ]
+    }
+   }
+  },
+  "tilesets": {
+   "id": "tilesets",
+   "fields": {
+    "animation": {
+     "name": "animation",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "blocks": {
+     "name": "blocks",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "any"
+      }
+     },
+     "required": true
+    },
+    "counterTiles": {
+     "name": "counterTiles",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    },
+    "doorTiles": {
+     "name": "doorTiles",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "image": {
+     "name": "image",
+     "type": {
+      "kind": "path"
+     },
+     "required": true
+    },
+    "imageHeight": {
+     "name": "imageHeight",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "imageWidth": {
+     "name": "imageWidth",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "tilesPerRow": {
+     "name": "tilesPerRow",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": false
+    },
+    "trueColor": {
+     "name": "trueColor",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "walkable": {
+     "name": "walkable",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    },
+    "warpTiles": {
+     "name": "warpTiles",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "animation",
+    "blocks",
+    "counterTiles",
+    "doorTiles",
+    "id",
+    "image",
+    "imageHeight",
+    "imageWidth",
+    "tilesPerRow",
+    "trueColor",
+    "walkable",
+    "warpTiles"
+   ],
+   "semantics": "record",
+   "target": "Data.tilesets",
+   "example": "mod.content.tilesets:register(\"MY_TILES\", { image = \"...\", blocks = { ... } })"
+  },
+  "tokens": {
+   "id": "tokens",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.tokens",
+   "value": "function",
+   "example": "mod.content.tokens:register(\"CLOCK\", function(game) return \"12\" end)",
+   "valueType": {
+    "kind": "lua"
+   }
+  },
+  "trainers": {
+   "id": "trainers",
+   "fields": {
+    "aiClass": {
+     "name": "aiClass",
+     "type": {
+      "kind": "ref",
+      "registry": "ai_classes"
+     },
+     "required": false
+    },
+    "aiMods": {
+     "name": "aiMods",
+     "type": {
+      "kind": "any"
+     },
+     "required": false
+    },
+    "baseMoney": {
+     "name": "baseMoney",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "required": false
+    },
+    "basePic": {
+     "name": "basePic",
+     "type": {
+      "kind": "ref",
+      "registry": "trainers"
+     },
+     "required": false
+    },
+    "battleTheme": {
+     "name": "battleTheme",
+     "type": {
+      "kind": "ref",
+      "registry": "music"
+     },
+     "required": false
+    },
+    "brain": {
+     "name": "brain",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "id": {
+     "name": "id",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "index": {
+     "name": "index",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "required": false
+    },
+    "name": {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "required": true
+    },
+    "paletteSource": {
+     "name": "paletteSource",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    },
+    "parties": {
+     "name": "parties",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "list",
+       "of": {
+        "kind": "struct",
+        "fields": [
+         {
+          "name": "level",
+          "optional": false,
+          "type": {
+           "kind": "any"
+          }
+         },
+         {
+          "name": "species",
+          "optional": false,
+          "type": {
+           "kind": "any"
+          }
+         }
+        ]
+       }
+      }
+     },
+     "required": true
+    },
+    "pic": {
+     "name": "pic",
+     "type": {
+      "kind": "path"
+     },
+     "required": false
+    },
+    "trueColor": {
+     "name": "trueColor",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "aiClass",
+    "aiMods",
+    "baseMoney",
+    "basePic",
+    "battleTheme",
+    "brain",
+    "id",
+    "index",
+    "name",
+    "paletteSource",
+    "parties",
+    "pic",
+    "trueColor"
+   ],
+   "semantics": "record",
+   "target": "Data.trainers",
+   "example": "mod.content.trainers:patch(\"OPP_BROCK\", { baseMoney = 99 })"
+  },
+  "transitions": {
+   "id": "transitions",
+   "fields": {
+    "draw": {
+     "name": "draw",
+     "type": {
+      "kind": "lua"
+     },
+     "required": false
+    },
+    "flash": {
+     "name": "flash",
+     "type": {
+      "kind": "bool"
+     },
+     "required": false
+    },
+    "frames": {
+     "name": "frames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "required": true
+    },
+    "sound": {
+     "name": "sound",
+     "type": {
+      "kind": "string"
+     },
+     "required": false
+    }
+   },
+   "order": [
+    "draw",
+    "flash",
+    "frames",
+    "sound"
+   ],
+   "semantics": "record",
+   "target": "Data.transitions",
+   "example": "mod.content.transitions:register(\"dissolve\", { frames = 30, draw = fn })"
+  },
+  "type_chart": {
+   "id": "type_chart",
+   "fields": {},
+   "order": [],
+   "semantics": "record",
+   "target": "Data.type_chart",
+   "value": "{multiplier} | {category, index?, name?}",
+   "example": "mod.content.type_chart:register(\"BUG>PSYCHIC_TYPE\", { multiplier = 20 })",
+   "valueType": {
+    "kind": "struct",
+    "fields": [
+     {
+      "name": "multiplier",
+      "optional": false,
+      "type": {
+       "kind": "any"
+      }
+     }
+    ],
+    "alts": [
+     "struct",
+     "struct"
+    ]
+   }
+  }
+ },
+ "commands": {
+  "show_text": {
+   "verb": "show_text",
+   "category": "Text and choices",
+   "does": "show a text box; `textId` is a generated-text label (`\"_PalletTownGirlText\"`), a map TEXT_* pointer, or a literal. `subs` fills `{RAM:...}` tokens",
+   "label": "Say something",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "textId",
+     "type": {
+      "kind": "text"
+     },
+     "label": "Text"
+    }
+   ]
+  },
+  "ask": {
+   "verb": "ask",
+   "category": "Text and choices",
+   "does": "text, then YES/NO; result in `lastCheck`",
+   "label": "Ask yes / no",
+   "check": true,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "textId",
+     "type": {
+      "kind": "text"
+     },
+     "label": "Question"
+    }
+   ]
+  },
+  "choice": {
+   "verb": "choice",
+   "category": "Text and choices",
+   "does": "N-way menu; `lastChoice = { index, label }`, `lastCheck = (index == 1)`; `opts.default` preselects, `opts.cancel` is the B index",
+   "label": "Menu choice",
+   "check": true,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "labels",
+     "type": {
+      "kind": "list",
+      "of": {
+       "kind": "string"
+      }
+     },
+     "label": "Options"
+    }
+   ]
+  },
+  "text_opts": {
+   "verb": "text_opts",
+   "category": "Text and choices",
+   "does": "TextBox options for the next `show_text` only (`auto = true` is the no-button-wait box)",
+   "label": "text opts",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "opts",
+     "type": {
+      "kind": "string"
+     },
+     "label": "opts"
+    }
+   ]
+  },
+  "text_sound": {
+   "verb": "text_sound",
+   "category": "Text and choices",
+   "does": "arm the NEXT `show_text` with a trailing jingle (the ROM's `sound_get_item_1` / `sound_get_key_item` text-command idiom): it fires once the last page has typed and the box waits on it before the button wait",
+   "label": "text sound",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "soundId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "soundId"
+    }
+   ]
+  },
+  "label": {
+   "verb": "label",
+   "category": "Flow",
+   "does": "jump target, pre-scanned by the runner",
+   "label": "label",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "label": "name"
+    }
+   ]
+  },
+  "jump": {
+   "verb": "jump",
+   "category": "Flow",
+   "does": "unconditional jump to a label",
+   "label": "jump",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "target",
+     "type": {
+      "kind": "string"
+     },
+     "label": "target"
+    }
+   ]
+  },
+  "jump_if_true": {
+   "verb": "jump_if_true",
+   "category": "Flow",
+   "does": "branch on `lastCheck`",
+   "label": "jump if true",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "target",
+     "type": {
+      "kind": "string"
+     },
+     "label": "target"
+    }
+   ]
+  },
+  "jump_if_false": {
+   "verb": "jump_if_false",
+   "category": "Flow",
+   "does": "branch on `lastCheck`",
+   "label": "jump if false",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "target",
+     "type": {
+      "kind": "string"
+     },
+     "label": "target"
+    }
+   ]
+  },
+  "wait": {
+   "verb": "wait",
+   "category": "Flow",
+   "does": "block for n frames",
+   "label": "Wait",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "frames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Frames",
+     "default": 30
+    }
+   ]
+  },
+  "wait_flag": {
+   "verb": "wait_flag",
+   "category": "Flow",
+   "does": "yield until the flag sets; `lastCheck` false on timeout. The sync primitive for parallel scripts",
+   "label": "Wait for a flag",
+   "check": true,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "flagName",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Flag"
+    },
+    {
+     "name": "timeoutFrames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Timeout",
+     "default": 300
+    }
+   ]
+  },
+  "run_parallel": {
+   "verb": "run_parallel",
+   "category": "Flow",
+   "does": "start a background script (bounded slots) and continue; `rowsOrRef` is a row array or `\"MAP_ID/name\"` naming a `map_scripts` `scripts` entry",
+   "label": "run parallel",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "rowsOrRef",
+     "type": {
+      "kind": "string"
+     },
+     "label": "rowsOrRef"
+    },
+    {
+     "name": "opts",
+     "type": {
+      "kind": "string"
+     },
+     "label": "opts"
+    }
+   ]
+  },
+  "set_flag": {
+   "verb": "set_flag",
+   "category": "Flags, items, money",
+   "does": "write the shared story-flag namespace",
+   "label": "Set flag",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Flag"
+    }
+   ]
+  },
+  "clear_flag": {
+   "verb": "clear_flag",
+   "category": "Flags, items, money",
+   "does": "write the shared story-flag namespace",
+   "label": "Clear flag",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Flag"
+    }
+   ]
+  },
+  "check_flag": {
+   "verb": "check_flag",
+   "category": "Flags, items, money",
+   "does": "`lastCheck` = flag state",
+   "label": "Is flag set?",
+   "check": true,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "name",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Flag"
+    }
+   ]
+  },
+  "check_item": {
+   "verb": "check_item",
+   "category": "Flags, items, money",
+   "does": "`lastCheck` = bag has one",
+   "label": "Has item?",
+   "check": true,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "itemId",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "label": "Item"
+    }
+   ]
+  },
+  "give_item": {
+   "verb": "give_item",
+   "category": "Flags, items, money",
+   "does": "add to bag with the received jingle; `gotText = false` when the script shows its own text",
+   "label": "Give item",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "itemId",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "label": "Item"
+    },
+    {
+     "name": "count",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "How many",
+     "default": 1
+    }
+   ]
+  },
+  "take_item": {
+   "verb": "take_item",
+   "category": "Flags, items, money",
+   "does": "remove from bag",
+   "label": "Take item",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "itemId",
+     "type": {
+      "kind": "ref",
+      "registry": "items"
+     },
+     "label": "Item"
+    },
+    {
+     "name": "count",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "How many",
+     "default": 1
+    }
+   ]
+  },
+  "give_money": {
+   "verb": "give_money",
+   "category": "Flags, items, money",
+   "does": "add money",
+   "label": "Give money",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "amount",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "Amount"
+    }
+   ]
+  },
+  "set_field": {
+   "verb": "set_field",
+   "category": "Flags, items, money",
+   "does": "scratch state outside the flag namespace; `\"mod:key\"` routes to the owning mod's `save.modData`",
+   "label": "set field",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "key",
+     "type": {
+      "kind": "string"
+     },
+     "label": "key"
+    },
+    {
+     "name": "value",
+     "type": {
+      "kind": "string"
+     },
+     "label": "value"
+    }
+   ]
+  },
+  "start_battle": {
+   "verb": "start_battle",
+   "category": "Battles and mons",
+   "does": "run a battle",
+   "label": "Start a battle",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "kind",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "wild",
+       "trainer"
+      ]
+     },
+     "label": "Kind",
+     "default": "wild"
+    },
+    {
+     "name": "who",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Species / trainer class"
+    },
+    {
+     "name": "levelOrParty",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Level / party index",
+     "default": 5
+    }
+   ]
+  },
+  "static_battle": {
+   "verb": "static_battle",
+   "category": "Battles and mons",
+   "does": "a static encounter (Snorlax/birds idiom); `beatFlag` set on any non-blackout end",
+   "label": "static battle",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "species",
+     "type": {
+      "kind": "string"
+     },
+     "label": "species"
+    },
+    {
+     "name": "level",
+     "type": {
+      "kind": "string"
+     },
+     "label": "level"
+    },
+    {
+     "name": "beatFlag",
+     "type": {
+      "kind": "string"
+     },
+     "label": "beatFlag"
+    }
+   ]
+  },
+  "rival_battle": {
+   "verb": "rival_battle",
+   "category": "Battles and mons",
+   "does": "the starter-counterpick party math",
+   "label": "rival battle",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "oppClass",
+     "type": {
+      "kind": "string"
+     },
+     "label": "oppClass"
+    },
+    {
+     "name": "baseParty",
+     "type": {
+      "kind": "string"
+     },
+     "label": "baseParty"
+    },
+    {
+     "name": "offsets",
+     "type": {
+      "kind": "string"
+     },
+     "label": "offsets"
+    }
+   ]
+  },
+  "check_battle_result": {
+   "verb": "check_battle_result",
+   "category": "Battles and mons",
+   "does": "\"lose\"\\|\"run\"\\|\"caught\", ...` | `lastCheck` = result is any of the given",
+   "label": "Did the player win?",
+   "check": true,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "result",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "win",
+       "lose",
+       "run",
+       "caught"
+      ]
+     },
+     "label": "Result",
+     "default": "win"
+    }
+   ]
+  },
+  "give_pokemon": {
+   "verb": "give_pokemon",
+   "category": "Battles and mons",
+   "does": "gift mon; emits the mutable `pokemon.before_give` first; `lastCheck` false when party and boxes are full. `skipNickname = true` suppresses the nickname prompt for callers that name the gift themselves",
+   "label": "Give a Pokemon",
+   "check": true,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "species",
+     "type": {
+      "kind": "ref",
+      "registry": "pokemon"
+     },
+     "label": "Species"
+    },
+    {
+     "name": "level",
+     "type": {
+      "kind": "int",
+      "min": 1,
+      "max": 100
+     },
+     "label": "Level",
+     "default": 5
+    }
+   ]
+  },
+  "save_end_battle_text": {
+   "verb": "save_end_battle_text",
+   "category": "Battles and mons",
+   "does": "stash the after-battle line the next scripted battle shows on defeat, with `{PLAYER}`/`{RIVAL}` expanded",
+   "label": "save end battle text",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "textId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "textId"
+    }
+   ]
+  },
+  "heal_party": {
+   "verb": "heal_party",
+   "category": "Battles and mons",
+   "does": "full heal",
+   "label": "Heal the party",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": []
+  },
+  "trade": {
+   "verb": "trade",
+   "category": "Battles and mons",
+   "does": "an in-game NPC trade",
+   "label": "trade",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "tradeIndex",
+     "type": {
+      "kind": "string"
+     },
+     "label": "tradeIndex"
+    },
+    {
+     "name": "doneFlag",
+     "type": {
+      "kind": "string"
+     },
+     "label": "doneFlag"
+    }
+   ]
+  },
+  "old_man_demo": {
+   "verb": "old_man_demo",
+   "category": "Battles and mons",
+   "does": "the Viridian catch tutorial",
+   "label": "old man demo",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "record_hall_of_fame": {
+   "verb": "record_hall_of_fame",
+   "category": "Battles and mons",
+   "does": "Hall of Fame sequence",
+   "label": "record hall of fame",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "mark_seen": {
+   "verb": "mark_seen",
+   "category": "Battles and mons",
+   "does": "set the Pokedex SEEN flag",
+   "label": "Mark seen in dex",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "species",
+     "type": {
+      "kind": "ref",
+      "registry": "pokemon"
+     },
+     "label": "Species"
+    }
+   ]
+  },
+  "check_dex_owned": {
+   "verb": "check_dex_owned",
+   "category": "Battles and mons",
+   "does": "`lastCheck` = at least `n` species owned (default 1)",
+   "label": "Owns N species?",
+   "check": true,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "n",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "How many",
+     "default": 1
+    }
+   ]
+  },
+  "dex_rating": {
+   "verb": "dex_rating",
+   "category": "Battles and mons",
+   "does": "Oak's seen/owned tally and rating line; blocks until the box closes",
+   "label": "dex rating",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "move_player": {
+   "verb": "move_player",
+   "category": "Movement and staging",
+   "does": "walk the player",
+   "label": "Walk the player",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "dir",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "up",
+       "down",
+       "left",
+       "right"
+      ]
+     },
+     "label": "Direction",
+     "default": "down"
+    },
+    {
+     "name": "tiles",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Steps",
+     "default": 1
+    }
+   ]
+  },
+  "move_npc": {
+   "verb": "move_npc",
+   "category": "Movement and staging",
+   "does": "walk an NPC",
+   "label": "Walk an NPC",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "objIndex",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "NPC index"
+    },
+    {
+     "name": "dir",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "up",
+       "down",
+       "left",
+       "right"
+      ]
+     },
+     "label": "Direction",
+     "default": "down"
+    },
+    {
+     "name": "tiles",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Steps",
+     "default": 1
+    }
+   ]
+  },
+  "place_npc": {
+   "verb": "place_npc",
+   "category": "Movement and staging",
+   "does": "teleport an NPC to a cell, no walk",
+   "label": "place npc",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "objIndex",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objIndex"
+    },
+    {
+     "name": "x",
+     "type": {
+      "kind": "string"
+     },
+     "label": "x"
+    },
+    {
+     "name": "y",
+     "type": {
+      "kind": "string"
+     },
+     "label": "y"
+    },
+    {
+     "name": "facing",
+     "type": {
+      "kind": "string"
+     },
+     "label": "facing"
+    }
+   ]
+  },
+  "move_npc_to": {
+   "verb": "move_npc_to",
+   "category": "Movement and staging",
+   "does": "pathfind an NPC to a cell",
+   "label": "move npc to",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "objIndex",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objIndex"
+    },
+    {
+     "name": "tx",
+     "type": {
+      "kind": "string"
+     },
+     "label": "tx"
+    },
+    {
+     "name": "ty",
+     "type": {
+      "kind": "string"
+     },
+     "label": "ty"
+    }
+   ]
+  },
+  "walk_npc": {
+   "verb": "walk_npc",
+   "category": "Movement and staging",
+   "does": "\"player\", dirs, opts` | chained walk along a direction list; `opts.wait = false` returns immediately",
+   "label": "walk npc",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "march_in_place": {
+   "verb": "march_in_place",
+   "category": "Movement and staging",
+   "does": "toggle walk-in-place; non-blocking",
+   "label": "march in place",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "objIndex",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objIndex"
+    },
+    {
+     "name": "on",
+     "type": {
+      "kind": "string"
+     },
+     "label": "on"
+    }
+   ]
+  },
+  "face": {
+   "verb": "face",
+   "category": "Movement and staging",
+   "does": "face the scripted NPC",
+   "label": "Turn to face",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "dir",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "up",
+       "down",
+       "left",
+       "right"
+      ]
+     },
+     "label": "Direction",
+     "default": "down"
+    }
+   ]
+  },
+  "face_player": {
+   "verb": "face_player",
+   "category": "Movement and staging",
+   "does": "scripted NPC faces the player",
+   "label": "Face the player",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": []
+  },
+  "face_object": {
+   "verb": "face_object",
+   "category": "Movement and staging",
+   "does": "face an arbitrary object",
+   "label": "face object",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "objIndex",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objIndex"
+    },
+    {
+     "name": "dir",
+     "type": {
+      "kind": "string"
+     },
+     "label": "dir"
+    }
+   ]
+  },
+  "face_npc": {
+   "verb": "face_npc",
+   "category": "Movement and staging",
+   "does": "player faces the scripted NPC",
+   "label": "Player faces me",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": []
+  },
+  "face_player_dir": {
+   "verb": "face_player_dir",
+   "category": "Movement and staging",
+   "does": "force the player's facing",
+   "label": "face player dir",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "dir",
+     "type": {
+      "kind": "string"
+     },
+     "label": "dir"
+    }
+   ]
+  },
+  "emote": {
+   "verb": "emote",
+   "category": "Movement and staging",
+   "does": "emote bubble (`\"shock\"`, `\"question\"`, `\"happy\"`)",
+   "label": "Emote bubble",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "target",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Target",
+     "default": "player"
+    },
+    {
+     "name": "bubble",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "shock",
+       "question",
+       "happy"
+      ]
+     },
+     "label": "Bubble",
+     "default": "shock"
+    },
+    {
+     "name": "frames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Frames",
+     "default": 30
+    }
+   ]
+  },
+  "warp": {
+   "verb": "warp",
+   "category": "Movement and staging",
+   "does": "scripted warp",
+   "label": "Warp somewhere",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "mapId",
+     "type": {
+      "kind": "ref",
+      "registry": "maps"
+     },
+     "label": "Map"
+    },
+    {
+     "name": "x",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "X"
+    },
+    {
+     "name": "y",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "Y"
+    },
+    {
+     "name": "facing",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "up",
+       "down",
+       "left",
+       "right"
+      ]
+     },
+     "label": "Facing",
+     "default": "down"
+    }
+   ]
+  },
+  "remember_outdoor": {
+   "verb": "remember_outdoor",
+   "category": "Movement and staging",
+   "does": "set `save.lastOutdoor`, the Dig / Escape Rope / blackout return point",
+   "label": "remember outdoor",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "mapId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "mapId"
+    },
+    {
+     "name": "x",
+     "type": {
+      "kind": "string"
+     },
+     "label": "x"
+    },
+    {
+     "name": "y",
+     "type": {
+      "kind": "string"
+     },
+     "label": "y"
+    }
+   ]
+  },
+  "show_object": {
+   "verb": "show_object",
+   "category": "Movement and staging",
+   "does": "persistent object toggles",
+   "label": "show object",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "mapId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "mapId"
+    },
+    {
+     "name": "objName",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objName"
+    }
+   ]
+  },
+  "hide_object": {
+   "verb": "hide_object",
+   "category": "Movement and staging",
+   "does": "persistent object toggles",
+   "label": "hide object",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "mapId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "mapId"
+    },
+    {
+     "name": "objName",
+     "type": {
+      "kind": "string"
+     },
+     "label": "objName"
+    }
+   ]
+  },
+  "replace_block": {
+   "verb": "replace_block",
+   "category": "Movement and staging",
+   "does": "the Cut-tree / card-key-door idiom",
+   "label": "Replace a block",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "bx",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "Block X"
+    },
+    {
+     "name": "by",
+     "type": {
+      "kind": "int",
+      "min": 0
+     },
+     "label": "Block Y"
+    },
+    {
+     "name": "blockId",
+     "type": {
+      "kind": "int",
+      "min": 0,
+      "max": 255
+     },
+     "label": "New block"
+    }
+   ]
+  },
+  "set_tile_anim": {
+   "verb": "set_tile_anim",
+   "category": "Movement and staging",
+   "does": "false` | override the tileset animation until the next map change",
+   "label": "set tile anim",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "pan_camera": {
+   "verb": "pan_camera",
+   "category": "Movement and staging",
+   "does": "offset the camera by cells (blocking)",
+   "label": "pan camera",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "dx",
+     "type": {
+      "kind": "string"
+     },
+     "label": "dx"
+    },
+    {
+     "name": "dy",
+     "type": {
+      "kind": "string"
+     },
+     "label": "dy"
+    },
+    {
+     "name": "frames",
+     "type": {
+      "kind": "string"
+     },
+     "label": "frames"
+    }
+   ]
+  },
+  "fade": {
+   "verb": "fade",
+   "category": "Movement and staging",
+   "does": "screen fade",
+   "label": "Fade the screen",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "dir",
+     "type": {
+      "kind": "enum",
+      "options": [
+       "out",
+       "in"
+      ]
+     },
+     "label": "Direction",
+     "default": "out"
+    },
+    {
+     "name": "frames",
+     "type": {
+      "kind": "int",
+      "min": 1
+     },
+     "label": "Frames",
+     "default": 16
+    }
+   ]
+  },
+  "play_sound": {
+   "verb": "play_sound",
+   "category": "Sound and screens",
+   "does": "one-shot SFX",
+   "label": "Play a sound",
+   "check": false,
+   "starter": true,
+   "curated": true,
+   "args": [
+    {
+     "name": "soundId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Sound"
+    }
+   ]
+  },
+  "play_cry": {
+   "verb": "play_cry",
+   "category": "Sound and screens",
+   "does": "a cry; a following `show_text` waits for it",
+   "label": "Play a cry",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "species",
+     "type": {
+      "kind": "ref",
+      "registry": "pokemon"
+     },
+     "label": "Species"
+    }
+   ]
+  },
+  "play_music": {
+   "verb": "play_music",
+   "category": "Sound and screens",
+   "does": "switch music now; `opts.keep` survives the next warp",
+   "label": "Change music",
+   "check": false,
+   "starter": false,
+   "curated": true,
+   "args": [
+    {
+     "name": "songId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "Song"
+    }
+   ]
+  },
+  "play_once": {
+   "verb": "play_once",
+   "category": "Sound and screens",
+   "does": "one-shot jingle (`Music_PkmnHealed` idiom); blocks until it finishes, then the map theme resumes",
+   "label": "play once",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "songId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "songId"
+    }
+   ]
+  },
+  "play_default_music": {
+   "verb": "play_default_music",
+   "category": "Sound and screens",
+   "does": "resume the current map's own theme after a cutscene override, keeping the bike/surf substitution rules",
+   "label": "play default music",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "fade_music": {
+   "verb": "fade_music",
+   "category": "Sound and screens",
+   "does": "fade the music out (default 10)",
+   "label": "fade music",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "frames",
+     "type": {
+      "kind": "string"
+     },
+     "label": "frames"
+    }
+   ]
+  },
+  "stop_music": {
+   "verb": "stop_music",
+   "category": "Sound and screens",
+   "does": "stop music",
+   "label": "stop music",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "open_mart": {
+   "verb": "open_mart",
+   "category": "Sound and screens",
+   "does": "open a mart by TEXT constant",
+   "label": "open mart",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "textConst",
+     "type": {
+      "kind": "string"
+     },
+     "label": "textConst"
+    }
+   ]
+  },
+  "push_screen": {
+   "verb": "push_screen",
+   "category": "Sound and screens",
+   "does": "instantiate through the `screens` registry and block until the screen pops",
+   "label": "push screen",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": [
+    {
+     "name": "screenId",
+     "type": {
+      "kind": "string"
+     },
+     "label": "screenId"
+    },
+    {
+     "name": "args",
+     "type": {
+      "kind": "string"
+     },
+     "label": "args"
+    }
+   ]
+  },
+  "load_player_starter_name": {
+   "verb": "load_player_starter_name",
+   "category": "Yellow support",
+   "does": "put the chosen starter's species name in the engine string buffer for the next text substitution",
+   "label": "load player starter name",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "spawn_pikachu_follower": {
+   "verb": "spawn_pikachu_follower",
+   "category": "Yellow support",
+   "does": "spawn the Pikachu follower on the current map",
+   "label": "spawn pikachu follower",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  },
+  "pikachu_make_way": {
+   "verb": "pikachu_make_way",
+   "category": "Yellow support",
+   "does": "Oak's Lab Pikachu step-aside movement; a no-op without a Yellow follower",
+   "label": "pikachu make way",
+   "check": false,
+   "starter": false,
+   "curated": false,
+   "args": []
+  }
+ },
+ "manifest": [
+  {
+   "name": "id",
+   "type": "string",
+   "default": "required",
+   "required": true,
+   "doc": "`[A-Za-z0-9_-]+`, unique across installed mods"
+  },
+  {
+   "name": "name",
+   "type": "string",
+   "default": "required",
+   "required": true,
+   "doc": "display name in the manager"
+  },
+  {
+   "name": "version",
+   "type": "string",
+   "default": "required",
+   "required": true,
+   "doc": "your own version; semver if you want other mods to range-check it"
+  },
+  {
+   "name": "entry",
+   "type": "string",
+   "default": "required",
+   "required": true,
+   "doc": "Lua file run at load time, relative to the mod dir"
+  },
+  {
+   "name": "api",
+   "type": "number",
+   "default": "1",
+   "required": false,
+   "doc": "mod API this mod is written against; `2` is the current one"
+  },
+  {
+   "name": "priority",
+   "type": "number",
+   "default": "0",
+   "required": false,
+   "doc": "lower loads first, after dependencies"
+  },
+  {
+   "name": "games",
+   "type": "array",
+   "default": "all Gen 1 games",
+   "required": false,
+   "doc": "which games the mod runs on: `\"gen1\"`, `\"gen2\"`, a version id (`\"red\"`, `\"blue\"`, `\"yellow\"`, `\"gold\"`), or `\"all\"`"
+  },
+  {
+   "name": "dependencies",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "dependency entries ([formats below](#dependency-entry-formats)); enforced"
+  },
+  {
+   "name": "optional_dependencies",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "same formats; ordering and `mod.find` only"
+  },
+  {
+   "name": "dependency_sources",
+   "type": "object",
+   "default": "none",
+   "required": false,
+   "doc": "`{ \"dep_id\": \"owner/repo\" }` GitHub fallbacks for entries that carry no repo hint of their own"
+  },
+  {
+   "name": "conflicts",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "`\"id\"` or `\"id@<range>\"`; enforced"
+  },
+  {
+   "name": "incompatible",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "alias for `conflicts`; merged into it at validate (same `\"id\"` / `\"id@<range>\"` syntax)"
+  },
+  {
+   "name": "category",
+   "type": "string",
+   "default": "\"OTHER\"",
+   "required": false,
+   "doc": "manager grouping"
+  },
+  {
+   "name": "game_version",
+   "type": "string",
+   "default": "none",
+   "required": false,
+   "doc": "semver range the engine must satisfy"
+  },
+  {
+   "name": "description",
+   "type": "string",
+   "default": "\"\"",
+   "required": false,
+   "doc": "manager detail text"
+  },
+  {
+   "name": "github",
+   "type": "string",
+   "default": "none",
+   "required": false,
+   "doc": "`\"owner/repo\"` or a `github.com` URL; enables launcher auto-update and Other versions"
+  },
+  {
+   "name": "experimental",
+   "type": "boolean",
+   "default": "false",
+   "required": false,
+   "doc": "when true, the mod stays off until the player enables it (with a confirm dialog)"
+  },
+  {
+   "name": "profile",
+   "type": "string",
+   "default": "\"content\"",
+   "required": false,
+   "doc": "`content`, `overhaul` or `total_conversion`"
+  },
+  {
+   "name": "affects_link",
+   "type": "boolean",
+   "default": "true unless profile is content",
+   "required": false,
+   "doc": "whether the mod is expected to move the link fingerprint"
+  },
+  {
+   "name": "permissions",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "`network`, `filesystem`, `engine_internals`, `steps`, `background`"
+  },
+  {
+   "name": "required_imports",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "user-supplied files the mod needs; the mod does not load while one is missing ([details below](#required-user-supplied-files))"
+  },
+  {
+   "name": "optional_imports",
+   "type": "array",
+   "default": "[]",
+   "required": false,
+   "doc": "user-supplied files that unlock optional functionality; same flow, never block loading"
+  },
+  {
+   "name": "options_schema",
+   "type": "string",
+   "default": "none",
+   "required": false,
+   "doc": "file declaring the mod's options; must exist"
+  },
+  {
+   "name": "assets_transforms",
+   "type": "string",
+   "default": "none",
+   "required": false,
+   "doc": "file declaring asset transforms; must exist"
+  },
+  {
+   "name": "force_enable_env",
+   "type": "string",
+   "default": "none",
+   "required": false,
+   "doc": "environment variable name; when set to `\"1\"` it re-enables the mod over a saved disable (for platform-bridge mods bundled with one build's launcher)"
+  }
+ ],
+ "starterRegistries": [
+  "pokemon",
+  "moves",
+  "items",
+  "trainers",
+  "maps",
+  "map_scripts",
+  "encounters",
+  "map_songs"
+ ]
+}
