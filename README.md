@@ -115,25 +115,6 @@ teaches you the other three.
 
 # User Guide
 
-## Before you start: game data
-
-Almost every workspace has one or two steps that need the game's own decoded
-data — maps to stand on, sprites to pick, moves to learn, animations to
-borrow. Whether your copy has it was decided when the HTML file was built.
-
-**What still works with no game data at all:** naming things, stats, prices,
-types, the node editor and its blocks, the whole Export tab, and every form on
-**All records**.
-
-**What needs it:** the Maps tab, every sprite picker, NPC **Import**, the
-Pokemon and Move and Item **Copy** dialogs, the move animation and cry steps,
-the shopkeeper list, and every dropdown that offers the game's own ids.
-
-Where a step needs data you do not have, it says so in place rather than
-failing — *"Load game data to see real blocks"*, *"No animation data —
-regenerate gamedata.json"*, and so on. See [Game data](#game-data) for how to
-generate it.
-
 ---
 
 ## NPC Editor
